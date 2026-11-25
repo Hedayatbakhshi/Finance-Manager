@@ -1,5 +1,7 @@
 # Finance Manager
 
+**English** | [فارسی](README.fa.md)
+
 A local-first personal finance app for Android, written in **Java + XML** with
 Material Design 3. It tracks accounts, income, expenses, transfers, budgets,
 recurring payments, savings goals, household expenses and reports. Data stays on
