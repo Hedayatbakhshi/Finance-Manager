@@ -1,0 +1,86 @@
+package com.financemanager.app.ui.data;
+
+import android.content.Context;
+import android.net.Uri;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModel;
+
+import com.financemanager.app.data.FinanceRepository;
+import com.financemanager.app.di.AppContainer;
+import com.financemanager.app.utils.BackupManager;
+import com.financemanager.app.utils.CsvExporter;
+import com.financemanager.app.utils.ReportExporter;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+
+/** Runs exports, backups and restores on the repository's background thread. */
+public class DataViewModel extends ViewModel {
+
+    private final Context context;
+    private final FinanceRepository repository;
+    private final CsvExporter csvExporter;
+    private final ReportExporter reportExporter;
+    private final BackupManager backupManager;
+    private final String currency;
+
+    public DataViewModel(@NonNull Context context, @NonNull AppContainer container) {
+        this.context = context.getApplicationContext();
+        this.repository = container.repository();
+        this.csvExporter = container.csvExporter();
+        this.reportExporter = container.reportExporter();
+        this.backupManager = container.backupManager();
+        this.currency = container.settings().getCurrency();
+    }
+
+    public String currency() {
+        return currency;
+    }
+
+    public void exportCsv(Uri uri, FinanceRepository.Callback<Integer> callback) {
+        repository.runAsync(() -> csvExporter.export(uri), callback);
+    }
+
+    public void exportReport(Uri uri, FinanceRepository.Callback<Integer> callback) {
+        repository.runAsync(() -> {
+            String text = reportExporter.build(currency);
+            try (OutputStream stream = context.getContentResolver().openOutputStream(uri, "w")) {
+                if (stream == null) {
+                    throw new IOException("Could not open the selected file");
+                }
+                byte[] bytes = text.getBytes(StandardCharsets.UTF_8);
+                stream.write(bytes);
+                stream.flush();
+                return bytes.length;
+            }
+        }, callback);
+    }
+
+    public void backup(Uri uri, FinanceRepository.Callback<BackupManager.BackupInfo> callback) {
+        repository.runAsync(() -> backupManager.writeBackup(uri), callback);
+    }
+
+    public void inspect(Uri uri, FinanceRepository.Callback<BackupManager.BackupInfo> callback) {
+        repository.runAsync(() -> backupManager.readInfo(uri), callback);
+    }
+
+    public void restore(Uri uri, FinanceRepository.Callback<BackupManager.BackupInfo> callback) {
+        repository.runAsync(() -> backupManager.restore(uri), callback);
+    }
+
+    public void clearAll(FinanceRepository.Callback<Void> callback) {
+        repository.clearAllData(new FinanceRepository.Callback<Void>() {
+            @Override
+            public void onSuccess(Void value) {
+                repository.seedIfNeeded(context, currency, () -> callback.onSuccess(null));
+            }
+
+            @Override
+            public void onError(String message) {
+                callback.onError(message);
+            }
+        });
+    }
+}

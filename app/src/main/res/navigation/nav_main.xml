@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.financemanager.app.ui.dashboard.DashboardFragment"
+        android:label="@string/nav_home" />
+
+    <fragment
+        android:id="@+id/transactions"
+        android:name="com.financemanager.app.ui.transactions.TransactionsFragment"
+        android:label="@string/nav_transactions" />
+
+    <fragment
+        android:id="@+id/budgets"
+        android:name="com.financemanager.app.ui.budgets.BudgetsFragment"
+        android:label="@string/nav_budgets" />
+
+    <fragment
+        android:id="@+id/reports"
+        android:name="com.financemanager.app.ui.reports.ReportsFragment"
+        android:label="@string/nav_reports" />
+
+    <fragment
+        android:id="@+id/more"
+        android:name="com.financemanager.app.ui.more.MoreFragment"
+        android:label="@string/nav_more" />
+
+    <fragment
+        android:id="@+id/transactionEditor"
+        android:name="com.financemanager.app.ui.transactions.TransactionEditorFragment"
+        android:label="@string/new_transaction">
+        <argument
+            android:name="transactionId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+        <argument
+            android:name="initialType"
+            android:defaultValue="EXPENSE"
+            app:argType="string" />
+        <argument
+            android:name="initialAccountId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/transactionFilter"
+        android:name="com.financemanager.app.ui.transactions.TransactionFilterFragment"
+        android:label="@string/filter_transactions">
+        <argument
+            android:name="filter"
+            app:argType="java.io.Serializable" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/accounts"
+        android:name="com.financemanager.app.ui.accounts.AccountsFragment"
+        android:label="@string/accounts" />
+
+    <fragment
+        android:id="@+id/accountEditor"
+        android:name="com.financemanager.app.ui.accounts.AccountEditorFragment"
+        android:label="@string/new_account">
+        <argument
+            android:name="accountId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/accountDetail"
+        android:name="com.financemanager.app.ui.accounts.AccountDetailFragment"
+        android:label="@string/account_details">
+        <argument
+            android:name="accountId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categories"
+        android:name="com.financemanager.app.ui.categories.CategoriesFragment"
+        android:label="@string/categories" />
+
+    <fragment
+        android:id="@+id/budgetEditor"
+        android:name="com.financemanager.app.ui.budgets.BudgetEditorFragment"
+        android:label="@string/new_budget">
+        <argument
+            android:name="budgetId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/savings"
+        android:name="com.financemanager.app.ui.savings.SavingsFragment"
+        android:label="@string/savings_goals" />
+
+    <fragment
+        android:id="@+id/savingsEditor"
+        android:name="com.financemanager.app.ui.savings.SavingsEditorFragment"
+        android:label="@string/new_goal">
+        <argument
+            android:name="goalId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recurring"
+        android:name="com.financemanager.app.ui.recurring.RecurringFragment"
+        android:label="@string/recurring_transactions" />
+
+    <fragment
+        android:id="@+id/recurringEditor"
+        android:name="com.financemanager.app.ui.recurring.RecurringEditorFragment"
+        android:label="@string/new_recurring">
+        <argument
+            android:name="recurringId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.financemanager.app.ui.settings.SettingsFragment"
+        android:label="@string/settings" />
+
+    <fragment
+        android:id="@+id/about"
+        android:name="com.financemanager.app.ui.about.AboutFragment"
+        android:label="@string/about" />
+
+    <fragment
+        android:id="@+id/data"
+        android:name="com.financemanager.app.ui.data.DataFragment"
+        android:label="@string/backup_restore" />
+
+    <!-- Household expense management -->
+    <fragment
+        android:id="@+id/households"
+        android:name="com.financemanager.app.ui.household.HouseholdsFragment"
+        android:label="@string/households" />
+
+    <fragment
+        android:id="@+id/householdEditor"
+        android:name="com.financemanager.app.ui.household.HouseholdEditorFragment"
+        android:label="@string/household_edit">
+        <argument
+            android:name="householdId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/householdOverview"
+        android:name="com.financemanager.app.ui.household.HouseholdOverviewFragment"
+        android:label="@string/household_overview">
+        <argument
+            android:name="householdId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/householdExpenses"
+        android:name="com.financemanager.app.ui.household.HouseholdExpensesFragment"
+        android:label="@string/household_expenses">
+        <argument
+            android:name="householdId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/householdExpenseEditor"
+        android:name="com.financemanager.app.ui.household.HouseholdExpenseEditorFragment"
+        android:label="@string/household_expense_new">
+        <argument
+            android:name="householdId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+        <argument
+            android:name="expenseId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/householdCategories"
+        android:name="com.financemanager.app.ui.household.HouseholdCategoriesFragment"
+        android:label="@string/household_categories">
+        <argument
+            android:name="householdId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/householdBudget"
+        android:name="com.financemanager.app.ui.household.HouseholdBudgetFragment"
+        android:label="@string/household_budget">
+        <argument
+            android:name="householdId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/householdReports"
+        android:name="com.financemanager.app.ui.household.HouseholdReportsFragment"
+        android:label="@string/household_reports">
+        <argument
+            android:name="householdId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+</navigation>

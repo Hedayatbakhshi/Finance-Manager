@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand palette (light) -->
+    <color name="primary">#172B4D</color>
+    <color name="primary_dark">#101D33</color>
+    <color name="secondary">#5B7FA6</color>
+    <color name="background">#F5F7FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="text_primary">#172033</color>
+    <color name="text_secondary">#778397</color>
+    <color name="success">#16A36A</color>
+    <color name="expense">#E05252</color>
+    <color name="warning">#E5A43B</color>
+    <color name="divider">#E8ECF2</color>
+    <!-- Frosted, floating bottom navigation -->
+    <color name="nav_glass_fill">#E6FFFFFF</color>
+    <color name="nav_glass_stroke">#1A172B4D</color>
+
+    <color name="surface_variant">#EDF1F7</color>
+    <color name="primary_container">#DCE6F5</color>
+    <color name="on_primary_container">#172B4D</color>
+    <color name="secondary_container">#E7EEF7</color>
+    <color name="success_container">#E1F4EC</color>
+    <color name="expense_container">#FBEAEA</color>
+    <color name="warning_container">#FCF1DE</color>
+    <color name="ripple">#1F172B4D</color>
+    <color name="scrim">#66000000</color>
+    <color name="chart_grid">#E8ECF2</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="balance_card_start">#1B345A</color>
+    <color name="balance_card_end">#172B4D</color>
+
+    <!-- App background gradient -->
+    <color name="app_gradient_start">#F7FAFF</color>
+    <color name="app_gradient_end">#ECF2F9</color>
+    <color name="app_gradient_glow">#145B7FA6</color>
+
+    <!-- Dark theme -->
+    <color name="dark_background">#101722</color>
+    <color name="dark_surface">#192536</color>
+    <color name="dark_primary">#8EACD5</color>
+    <color name="dark_on_primary">#0A1220</color>
+    <color name="dark_text_primary">#F2F5FA</color>
+    <color name="dark_text_secondary">#A5B1C2</color>
+    <color name="dark_divider">#26344A</color>
+    <color name="dark_surface_variant">#223047</color>
+    <color name="dark_primary_container">#24344C</color>
+    <color name="dark_on_primary_container">#D6E3F5</color>
+    <color name="dark_success_container">#153A2C</color>
+    <color name="dark_expense_container">#3A1D1D</color>
+    <color name="dark_warning_container">#3A2C15</color>
+    <color name="dark_balance_card_start">#24344C</color>
+    <color name="dark_balance_card_end">#192536</color>
+    <color name="dark_chart_grid">#26344A</color>
+
+    <!-- Category color choices -->
+    <color name="cat_blue">#3E6DB5</color>
+    <color name="cat_teal">#16A36A</color>
+    <color name="cat_orange">#E5A43B</color>
+    <color name="cat_red">#E05252</color>
+    <color name="cat_purple">#7E63C9</color>
+    <color name="cat_pink">#D96A9B</color>
+    <color name="cat_cyan">#2AA3C0</color>
+    <color name="cat_grey">#778397</color>
+    <color name="cat_brown">#A9714B</color>
+    <color name="cat_lime">#7B9E21</color>
+</resources>

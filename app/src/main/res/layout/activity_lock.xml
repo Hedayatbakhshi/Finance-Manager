@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_app_gradient"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp">
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:background="@drawable/bg_circle"
+        android:backgroundTint="?attr/colorPrimaryContainer">
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_action_wallet"
+            app:tint="?attr/colorOnPrimaryContainer" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/app_name"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/lock_subtitle"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:id="@+id/dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:gravity="center"
+        android:orientation="horizontal" />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:minHeight="20dp"
+        android:textColor="@color/expense"
+        android:textSize="13sp" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <GridLayout
+        android:id="@+id/keypad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:layoutDirection="ltr"
+        android:rowCount="4">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_1"
+            style="@style/Widget.Finance.Keypad"
+            android:text="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_2"
+            style="@style/Widget.Finance.Keypad"
+            android:text="2" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_3"
+            style="@style/Widget.Finance.Keypad"
+            android:text="3" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_4"
+            style="@style/Widget.Finance.Keypad"
+            android:text="4" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_5"
+            style="@style/Widget.Finance.Keypad"
+            android:text="5" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_6"
+            style="@style/Widget.Finance.Keypad"
+            android:text="6" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_7"
+            style="@style/Widget.Finance.Keypad"
+            android:text="7" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_8"
+            style="@style/Widget.Finance.Keypad"
+            android:text="8" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_9"
+            style="@style/Widget.Finance.Keypad"
+            android:text="9" />
+
+        <ImageButton
+            android:id="@+id/key_biometric"
+            android:layout_width="84dp"
+            android:layout_height="68dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/lock_with_biometric"
+            android:scaleType="center"
+            android:src="@drawable/ic_action_fingerprint"
+            android:visibility="invisible"
+            app:tint="?attr/colorPrimary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/key_0"
+            style="@style/Widget.Finance.Keypad"
+            android:text="0" />
+
+        <ImageButton
+            android:id="@+id/key_backspace"
+            android:layout_width="84dp"
+            android:layout_height="68dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_backspace"
+            android:scaleType="center"
+            android:src="@drawable/ic_action_backspace"
+            app:tint="?attr/colorOnSurfaceVariant" />
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/forgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="20dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp"
+        android:text="@string/pin_forgot"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="11sp" />
+
+</LinearLayout>

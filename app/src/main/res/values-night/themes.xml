@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.FinanceManager" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/dark_primary</item>
+        <item name="colorOnPrimary">@color/dark_on_primary</item>
+        <item name="colorPrimaryContainer">@color/dark_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/dark_on_primary_container</item>
+        <item name="colorSecondary">@color/dark_primary</item>
+        <item name="colorSecondaryContainer">@color/dark_primary_container</item>
+        <item name="colorSurface">@color/dark_surface</item>
+        <item name="colorOnSurface">@color/dark_text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/dark_text_secondary</item>
+        <item name="colorSurfaceVariant">@color/dark_surface_variant</item>
+        <item name="colorOutline">@color/dark_divider</item>
+        <item name="colorOutlineVariant">@color/dark_divider</item>
+        <item name="colorError">@color/expense</item>
+        <item name="android:colorBackground">@color/dark_background</item>
+        <item name="android:windowBackground">@drawable/bg_app_gradient</item>
+        <item name="colorSurfaceContainer">@color/dark_surface</item>
+        <item name="colorSurfaceContainerLow">@color/dark_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/dark_surface_variant</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="materialCardViewStyle">@style/Widget.Finance.Card</item>
+        <item name="materialButtonStyle">@style/Widget.Finance.Button</item>
+        <item name="textInputStyle">@style/Widget.Finance.TextInputLayout</item>
+        <item name="bottomNavigationStyle">@style/Widget.Finance.BottomNav</item>
+    </style>
+
+    <style name="Theme.FinanceManager.Splash" parent="Theme.FinanceManager">
+        <item name="android:windowBackground">@drawable/bg_app_gradient</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Theme.FinanceManager.Lock" parent="Theme.FinanceManager">
+        <item name="android:windowBackground">@drawable/bg_app_gradient</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+    </style>
+</resources>
