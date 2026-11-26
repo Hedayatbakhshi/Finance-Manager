@@ -353,7 +353,7 @@
     <string name="more_savings_subtitle">پیگیری پیشرفت اهداف</string>
     <string name="more_recurring_subtitle">درآمد و پرداخت‌های زمان‌بندی‌شده</string>
     <string name="more_data_subtitle">صدور، پشتیبان‌گیری یا بازیابی داده‌ها</string>
-    <string name="more_settings_subtitle">نمایه، پوسته، قفل و اعلان‌ها</string>
+    <string name="more_settings_subtitle">نمایه، تم، قفل و اعلان‌ها</string>
     <string name="more_currency_summary">واحد پول پیش‌فرض · %1$s</string>
 
     <string name="appearance">ظاهر</string>
@@ -362,7 +362,7 @@
     <string name="language_system">پیش‌فرض سیستم</string>
     <string name="language_english">English</string>
     <string name="language_persian">فارسی</string>
-    <string name="theme">پوسته</string>
+    <string name="theme">تم</string>
     <string name="theme_system">همگام با سیستم</string>
     <string name="theme_light">روشن</string>
     <string name="theme_dark">تیره</string>
