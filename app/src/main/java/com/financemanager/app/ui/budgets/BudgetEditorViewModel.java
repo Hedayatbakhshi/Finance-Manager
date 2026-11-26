@@ -27,6 +27,7 @@ public class BudgetEditorViewModel extends ViewModel {
     public long selectedCategoryId = -1;
     public long startDate;
     public long endDate;
+    public boolean rollover;
     public Budget editing;
 
     public BudgetEditorViewModel(@NonNull FinanceRepository repository) {
@@ -65,6 +66,7 @@ public class BudgetEditorViewModel extends ViewModel {
                 selectedCategoryId = value.categoryId;
                 startDate = value.startDate;
                 endDate = value.endDate;
+                rollover = value.rollover;
                 loaded.setValue(value);
             }
 
@@ -86,6 +88,7 @@ public class BudgetEditorViewModel extends ViewModel {
         budget.categoryId = selectedCategoryId;
         budget.startDate = startDate;
         budget.endDate = endDate;
+        budget.rollover = rollover;
         repository.saveBudget(budget, !isEditing(), callback);
     }
 

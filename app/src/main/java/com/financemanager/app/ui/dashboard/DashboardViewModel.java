@@ -148,7 +148,7 @@ public class DashboardViewModel extends ViewModel {
         for (BudgetWithProgress item : budgets) {
             if (item.budget.startDate <= todayEnd && item.budget.endDate >= todayStart) {
                 active.add(item);
-                total += item.budget.amountMinor;
+                total += item.availableMinor();
                 spent += item.spentMinor;
             }
         }

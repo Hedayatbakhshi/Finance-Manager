@@ -99,7 +99,8 @@ Run the normal `assembleRelease` once the lint dependencies are available.
   history; account detail screen.
 - **Budgets** — per-category spending limits with progress bars, remaining
   amounts and notifications at 50%, 80%, 100% and over-budget, once per
-  threshold per period.
+  threshold per period. A budget can optionally roll over the unspent amount of
+  the budget that ends the day before it starts.
 - **Savings goals** — target amount/date, add and withdraw money, progress
   ring/bar, reminders and completion state.
 - **Recurring transactions** — daily/weekly/monthly/yearly schedules, automatic
@@ -326,6 +327,9 @@ expenses; all are written through the Storage Access Framework.
   cannot attach one. Receipts are stored only on the device and are not backed
   up, encrypted or otherwise. Backups made before version 2 contain no household
   profiles.
+- Budget rollover uses one adjacent predecessor only: the previous budget for
+  the same category must end exactly the day before the current one starts, and
+  its own rolled-over amount is not compounded.
 - No home-screen widget or launcher shortcuts; new entries start from the app.
 - PDF statements cover the current month only; an arbitrary date range is not
   selectable yet.

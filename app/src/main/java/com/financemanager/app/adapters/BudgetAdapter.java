@@ -1,6 +1,7 @@
 package com.financemanager.app.adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,9 @@ public class BudgetAdapter extends ListAdapter<BudgetWithProgress, BudgetAdapter
                             && oldItem.budget.amountMinor == newItem.budget.amountMinor
                             && oldItem.budget.startDate == newItem.budget.startDate
                             && oldItem.budget.endDate == newItem.budget.endDate
+                            && oldItem.budget.rollover == newItem.budget.rollover
                             && oldItem.spentMinor == newItem.spentMinor
+                            && oldItem.carryoverMinor == newItem.carryoverMinor
                             && oldItem.budget.categoryId == newItem.budget.categoryId;
                 }
             };
@@ -79,10 +82,16 @@ public class BudgetAdapter extends ListAdapter<BudgetWithProgress, BudgetAdapter
             binding.name.setText(item.budget.name);
             binding.period.setText(DateUtils.formatShortDay(item.budget.startDate) + " – "
                     + DateUtils.formatShortDay(item.budget.endDate));
+            long available = item.availableMinor();
             binding.spent.setText(Money.format(item.spentMinor, currency));
-            binding.total.setText("/ " + Money.format(item.budget.amountMinor, currency));
+            binding.total.setText("/ " + Money.format(available, currency));
+            binding.rolloverNote.setVisibility(item.carryoverMinor > 0 ? View.VISIBLE : View.GONE);
+            if (item.carryoverMinor > 0) {
+                binding.rolloverNote.setText(context.getString(R.string.budget_rollover_note,
+                        Money.format(item.carryoverMinor, currency)));
+            }
 
-            int percent = Money.rawPercent(item.spentMinor, item.budget.amountMinor);
+            int percent = Money.rawPercent(item.spentMinor, available);
             binding.progress.setProgress(Math.min(100, Math.max(0, percent)));
 
             int color;
@@ -112,7 +121,7 @@ public class BudgetAdapter extends ListAdapter<BudgetWithProgress, BudgetAdapter
             binding.percent.setText(context.getString(R.string.budget_percent_used,
                     Math.max(0, percent)));
 
-            long remaining = item.budget.amountMinor - item.spentMinor;
+            long remaining = available - item.spentMinor;
             if (remaining >= 0) {
                 binding.remaining.setText(context.getString(R.string.remaining_amount,
                         Money.format(remaining, currency)));

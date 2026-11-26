@@ -22,4 +22,13 @@ public class BudgetWithProgress {
 
     @ColumnInfo(name = "spent_minor")
     public long spentMinor;
+
+    /** Unspent amount carried over from the preceding budget for the same category. */
+    @ColumnInfo(name = "carryover_minor")
+    public long carryoverMinor;
+
+    /** The limit that spending is measured against, including any rollover. */
+    public long availableMinor() {
+        return budget.amountMinor + carryoverMinor;
+    }
 }

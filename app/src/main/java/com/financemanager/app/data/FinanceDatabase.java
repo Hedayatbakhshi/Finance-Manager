@@ -28,7 +28,7 @@ import com.financemanager.app.data.entity.SavingsGoal;
 import com.financemanager.app.data.entity.TransactionEntity;
 
 /**
- * Local Room database. Schema version 2 adds local household profiles.
+ * Local Room database. Schema version 3 adds optional budget rollover.
  * concrete {@code Migration}; destructive migrations are intentionally not enabled
  * because losing financial history is never acceptable.
  */
@@ -45,7 +45,7 @@ import com.financemanager.app.data.entity.TransactionEntity;
                 HouseholdMember.class,
                 HouseholdCategory.class
         },
-        version = 2,
+        version = 3,
         exportSchema = true)
 @TypeConverters(Converters.class)
 public abstract class FinanceDatabase extends RoomDatabase {
@@ -75,7 +75,7 @@ public abstract class FinanceDatabase extends RoomDatabase {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(),
                                     FinanceDatabase.class, DATABASE_NAME)
-                            .addMigrations(new Migration1To2())
+                            .addMigrations(new Migration1To2(), new Migration2To3())
                             .build();
                 }
             }

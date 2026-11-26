@@ -227,6 +227,9 @@
     <string name="budget_name_hint">مثلاً خوراک ماهانه</string>
     <string name="budget_amount">مبلغ بودجه</string>
     <string name="budget_period">دوره</string>
+    <string name="budget_rollover">انتقال باقی‌مانده</string>
+    <string name="budget_rollover_summary">مبلغ باقی‌مانده از بودجه‌ای که یک روز پیش از شروع این دوره تمام شده اضافه می‌شود. فقط دوره بلافاصله قبل منتقل می‌شود.</string>
+    <string name="budget_rollover_note">شامل %1$s منتقل‌شده</string>
     <string name="budget_start_date">تاریخ شروع</string>
     <string name="budget_end_date">تاریخ پایان</string>
     <string name="budget_details">جزئیات بودجه</string>

@@ -47,14 +47,15 @@ public final class BudgetAlertChecker {
     private static void checkBudget(Context context, FinanceDatabase database,
                                     NotificationHelper notifications, String currency,
                                     BudgetWithProgress item) {
-        if (item.budget.amountMinor <= 0) {
+        long limit = item.availableMinor();
+        if (limit <= 0) {
             return;
         }
         long spent = item.budget.categoryId > 0
                 ? database.transactionDao().expenseForCategory(item.budget.categoryId,
                 item.budget.startDate, item.budget.endDate, currency)
                 : item.spentMinor;
-        int percent = Money.rawPercent(spent, item.budget.amountMinor);
+        int percent = Money.rawPercent(spent, limit);
         int highest = 0;
         for (int threshold : THRESHOLDS) {
             if (percent >= threshold) {
@@ -88,7 +89,7 @@ public final class BudgetAlertChecker {
         String message;
         if (highest == 101) {
             message = context.getString(R.string.notif_budget_over, name,
-                    Money.format(spent - item.budget.amountMinor, currency));
+                    Money.format(spent - limit, currency));
         } else if (highest == 100) {
             message = context.getString(R.string.notif_budget_100, name);
         } else if (highest == 80) {

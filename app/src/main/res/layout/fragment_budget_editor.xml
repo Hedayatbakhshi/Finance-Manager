@@ -142,6 +142,23 @@
                     app:cornerRadius="12dp" />
             </LinearLayout>
 
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/rollover_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/budget_rollover"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/budget_rollover_summary"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="12sp" />
+
             <TextView
                 android:id="@+id/progress_summary"
                 android:layout_width="match_parent"

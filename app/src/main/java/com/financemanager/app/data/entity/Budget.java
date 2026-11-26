@@ -36,6 +36,13 @@ public class Budget {
     @ColumnInfo(name = "end_date")
     public long endDate;
 
+    /**
+     * When true, the unspent amount of the immediately preceding budget for the
+     * same category is added to this budget's limit.
+     */
+    @ColumnInfo(name = "rollover", defaultValue = "0")
+    public boolean rollover;
+
     @ColumnInfo(name = "created_at")
     public long createdAt;
 

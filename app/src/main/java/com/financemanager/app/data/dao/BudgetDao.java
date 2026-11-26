@@ -26,7 +26,18 @@ public interface BudgetDao {
             + "     JOIN accounts a ON a.id = t.account_id"
             + "     WHERE t.type = 'EXPENSE' AND t.category_id = b.category_id"
             + "     AND t.date >= b.start_date AND t.date <= b.end_date"
-            + "     AND a.currency = :currency), 0) AS spent_minor"
+            + "     AND a.currency = :currency), 0) AS spent_minor,"
+            // Unspent money from the budget for the same category that ends the day
+            // before this one starts. Only adjacent periods roll over, and only when
+            // this budget opts in, so an old budget never resurrects stale money.
+            + " COALESCE((SELECT MAX(0, pb.amount_minor - COALESCE((SELECT SUM(pt.amount_minor)"
+            + "     FROM transactions pt JOIN accounts pa ON pa.id = pt.account_id"
+            + "     WHERE pt.type = 'EXPENSE' AND pt.category_id = pb.category_id"
+            + "     AND pt.date >= pb.start_date AND pt.date <= pb.end_date"
+            + "     AND pa.currency = :currency), 0))"
+            + "     FROM budgets pb WHERE b.rollover = 1 AND pb.category_id = b.category_id"
+            + "     AND pb.end_date = b.start_date - 1"
+            + "     ORDER BY pb.end_date DESC, pb.id DESC LIMIT 1), 0) AS carryover_minor"
             + " FROM budgets b LEFT JOIN categories c ON c.id = b.category_id";
 
     @Insert

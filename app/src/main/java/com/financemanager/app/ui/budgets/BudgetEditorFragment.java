@@ -68,6 +68,9 @@ public class BudgetEditorFragment extends Fragment {
         binding.categoryField.fieldRoot.setOnClickListener(v -> openCategoryPicker());
         binding.startDate.setOnClickListener(v -> pickDate(true));
         binding.endDate.setOnClickListener(v -> pickDate(false));
+        binding.rolloverSwitch.setChecked(viewModel.rollover);
+        binding.rolloverSwitch.setOnCheckedChangeListener(
+                (button, checked) -> viewModel.rollover = checked);
         binding.save.setOnClickListener(v -> save());
         binding.delete.setVisibility(viewModel.isEditing() ? View.VISIBLE : View.GONE);
         binding.delete.setOnClickListener(v -> confirmDelete());
@@ -109,6 +112,7 @@ public class BudgetEditorFragment extends Fragment {
             filled = true;
             binding.nameInput.setText(budget.name);
             binding.amountInput.setText(Money.toInput(budget.amountMinor));
+            binding.rolloverSwitch.setChecked(budget.rollover);
             renderDates();
             renderCategory();
         });

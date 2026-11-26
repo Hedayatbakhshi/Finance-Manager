@@ -239,6 +239,7 @@ public class BackupManager {
             item.put("amount_minor", budget.amountMinor);
             item.put("start_date", budget.startDate);
             item.put("end_date", budget.endDate);
+            item.put("rollover", budget.rollover);
             budgets.put(item);
         }
         root.put("budgets", budgets);
@@ -536,6 +537,7 @@ public class BackupManager {
                 budget.amountMinor = item.optLong("amount_minor", 0);
                 budget.startDate = item.optLong("start_date", 0);
                 budget.endDate = item.optLong("end_date", 0);
+                budget.rollover = item.optBoolean("rollover", false);
                 if (budget.amountMinor <= 0 || budget.startDate <= 0
                         || budget.endDate < budget.startDate) {
                     continue;

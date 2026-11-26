@@ -227,6 +227,9 @@
     <string name="budget_name_hint">e.g. Monthly food</string>
     <string name="budget_amount">Budget amount</string>
     <string name="budget_period">Period</string>
+    <string name="budget_rollover">Roll over unspent</string>
+    <string name="budget_rollover_summary">Adds what was left of the budget that ends the day before this one starts. Only the immediately preceding period carries over.</string>
+    <string name="budget_rollover_note">Includes %1$s rolled over</string>
     <string name="budget_start_date">Start date</string>
     <string name="budget_end_date">End date</string>
     <string name="budget_details">Budget details</string>

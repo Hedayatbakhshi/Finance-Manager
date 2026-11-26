@@ -86,7 +86,7 @@ public class BudgetsFragment extends Fragment {
         int activeCount = 0;
         for (BudgetWithProgress item : budgets) {
             if (item.budget.startDate <= todayEnd && item.budget.endDate >= todayStart) {
-                total += item.budget.amountMinor;
+                total += item.availableMinor();
                 spent += item.spentMinor;
                 activeCount++;
             }
