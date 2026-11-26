@@ -38,23 +38,23 @@
     <color name="app_gradient_end">#ECF2F9</color>
     <color name="app_gradient_glow">#145B7FA6</color>
 
-    <!-- Dark theme -->
-    <color name="dark_background">#101722</color>
-    <color name="dark_surface">#192536</color>
-    <color name="dark_primary">#8EACD5</color>
-    <color name="dark_on_primary">#0A1220</color>
-    <color name="dark_text_primary">#F2F5FA</color>
-    <color name="dark_text_secondary">#A5B1C2</color>
-    <color name="dark_divider">#26344A</color>
-    <color name="dark_surface_variant">#223047</color>
-    <color name="dark_primary_container">#24344C</color>
-    <color name="dark_on_primary_container">#D6E3F5</color>
-    <color name="dark_success_container">#153A2C</color>
-    <color name="dark_expense_container">#3A1D1D</color>
-    <color name="dark_warning_container">#3A2C15</color>
-    <color name="dark_balance_card_start">#24344C</color>
-    <color name="dark_balance_card_end">#192536</color>
-    <color name="dark_chart_grid">#26344A</color>
+    <!-- Dark theme: midnight emerald -->
+    <color name="dark_background">#071412</color>
+    <color name="dark_surface">#0F211E</color>
+    <color name="dark_primary">#6FE3C1</color>
+    <color name="dark_on_primary">#00201A</color>
+    <color name="dark_text_primary">#E6F4EF</color>
+    <color name="dark_text_secondary">#9DB7B0</color>
+    <color name="dark_divider">#1F3A34</color>
+    <color name="dark_surface_variant">#16302B</color>
+    <color name="dark_primary_container">#143A32</color>
+    <color name="dark_on_primary_container">#B9F2E2</color>
+    <color name="dark_success_container">#0F3528</color>
+    <color name="dark_expense_container">#3A1D22</color>
+    <color name="dark_warning_container">#3A2E15</color>
+    <color name="dark_balance_card_start">#0F3A32</color>
+    <color name="dark_balance_card_end">#0C2622</color>
+    <color name="dark_chart_grid">#1E3732</color>
 
     <!-- Category color choices -->
     <color name="cat_blue">#3E6DB5</color>
