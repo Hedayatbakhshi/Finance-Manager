@@ -23,6 +23,8 @@ public class DashboardState {
     public long previousMonthBalance;
     public long monthIncome;
     public long monthExpense;
+    public long previousMonthIncome;
+    public long previousMonthExpense;
     public int accountsCount;
     public boolean hasForeignCurrencyAccounts;
     public boolean loaded;
@@ -47,6 +49,16 @@ public class DashboardState {
     /** Percentage change of net worth versus the end of last month, if calculable. */
     public Double balanceChangePercent() {
         return Money.percentChange(totalBalance, previousMonthBalance);
+    }
+
+    /** Percentage change in income versus the whole of last month, if calculable. */
+    public Double incomeChangePercent() {
+        return Money.percentChange(monthIncome, previousMonthIncome);
+    }
+
+    /** Percentage change in expenses versus the whole of last month, if calculable. */
+    public Double expenseChangePercent() {
+        return Money.percentChange(monthExpense, previousMonthExpense);
     }
 
     public int budgetPercent() {

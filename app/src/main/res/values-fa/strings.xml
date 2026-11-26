@@ -67,6 +67,8 @@
     <string name="balance_compared_last_month">%1$s نسبت به ماه گذشته</string>
     <string name="balance_no_history">هنوز داده‌ای برای ماه گذشته وجود ندارد</string>
     <string name="balance_compared_short">نسبت به ماه گذشته</string>
+    <string name="change_vs_last_month">%1$s نسبت به ماه گذشته</string>
+    <string name="no_last_month_data">داده‌ای برای ماه گذشته نیست</string>
     <string name="income">درآمد</string>
     <string name="expenses">هزینه‌ها</string>
     <string name="this_month">این ماه</string>
@@ -436,6 +438,10 @@
     <string name="export_csv_summary">صفحه‌گسترده‌ای از همه تراکنش‌ها ذخیره یا به اشتراک بگذارید</string>
     <string name="export_report">صدور گزارش مالی</string>
     <string name="export_report_summary">خلاصه متنی از وضعیت مالی خود ذخیره کنید</string>
+    <string name="export_statement">خروجی صورت‌حساب PDF</string>
+    <string name="export_statement_summary">صورت‌حساب قابل چاپ این ماه را ذخیره کنید</string>
+    <string name="statement_success">صورت‌حساب ذخیره شد</string>
+    <string name="statement_failed">ساخت صورت‌حساب ممکن نشد. دوباره تلاش کنید.</string>
     <string name="import_csv">وارد کردن تراکنش‌ها (CSV)</string>
     <string name="import_csv_summary">افزودن تراکنش‌ها از فایل CSV که با همین برنامه صادر شده است</string>
     <string name="import_success">%1$d تراکنش وارد شد · %2$d نادیده گرفته شد</string>
@@ -465,6 +471,15 @@
     <string name="restore_title">بازیابی پشتیبان؟</string>
     <string name="restore_message">این پشتیبان شامل %1$d حساب، %2$d دسته‌بندی، %3$d تراکنش، %4$d بودجه و %5$d هدف است.</string>
     <string name="restore_mode_hint">ادغام رکوردهای فعلی را نگه می‌دارد و پشتیبان را اضافه می‌کند. جایگزینی ابتدا همهٔ داده‌های فعلی را حذف می‌کند.</string>
+
+    <!-- PDF statement -->
+    <string name="pdf_statement_title">صورت‌حساب ماهانه</string>
+    <string name="pdf_period">%1$s · %2$s</string>
+    <string name="pdf_generated">ایجادشده در %1$s</string>
+    <string name="pdf_transactions">تراکنش‌ها</string>
+    <string name="pdf_no_transactions">این ماه تراکنشی ثبت نشده است</string>
+    <string name="pdf_no_expenses">این ماه هزینه‌ای ثبت نشده است</string>
+    <string name="pdf_page">صفحهٔ %1$d</string>
     <string name="restore_merge">ادغام</string>
     <string name="restore_replace">جایگزینی</string>
     <string name="replace_confirm_title">همهٔ داده‌ها جایگزین شوند؟</string>

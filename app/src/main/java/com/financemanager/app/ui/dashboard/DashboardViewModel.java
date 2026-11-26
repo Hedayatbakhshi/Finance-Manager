@@ -40,7 +40,7 @@ public class DashboardViewModel extends ViewModel {
     private final String currency;
     private final MediatorLiveData<DashboardState> state = new MediatorLiveData<>();
     private final DashboardState draft = new DashboardState();
-    private final List<Boolean> seen = new ArrayList<>(Collections.nCopies(9, false));
+    private final List<Boolean> seen = new ArrayList<>(Collections.nCopies(11, false));
     private final int daysElapsedThisMonth;
 
     private final LocalDate weekStart;
@@ -75,6 +75,7 @@ public class DashboardViewModel extends ViewModel {
         long monthTo = DateUtils.endOfMonth(today);
         long yearFrom = DateUtils.startOfDay(yearStartDate);
         long yearTo = DateUtils.endOfDay(today.withDayOfYear(today.lengthOfYear()));
+        long lastMonthFrom = DateUtils.startOfMonth(today.minusMonths(1));
         long lastMonthEnd = DateUtils.endOfMonth(today.minusMonths(1));
 
         observe(repository.observeAccounts(), 0, accounts -> {
@@ -120,6 +121,12 @@ public class DashboardViewModel extends ViewModel {
                 TransactionType.EXPENSE, monthFrom, monthTo, currency), 8,
                 value -> monthCategories = value == null
                         ? Collections.emptyList() : value);
+        observe(repository.database().transactionDao().observeTotalForType(
+                        TransactionType.INCOME, lastMonthFrom, lastMonthEnd, currency), 9,
+                value -> draft.previousMonthIncome = value == null ? 0 : value);
+        observe(repository.database().transactionDao().observeTotalForType(
+                        TransactionType.EXPENSE, lastMonthFrom, lastMonthEnd, currency), 10,
+                value -> draft.previousMonthExpense = value == null ? 0 : value);
     }
 
     private <T> void observe(LiveData<T> source, int index, ValueConsumer<T> consumer) {

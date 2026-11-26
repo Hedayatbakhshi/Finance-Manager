@@ -254,6 +254,16 @@
                         android:textColor="@color/success"
                         android:textDirection="ltr"
                         android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/income_trend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="10sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -305,6 +315,16 @@
                         android:textColor="@color/expense"
                         android:textDirection="ltr"
                         android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/expense_trend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="10sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

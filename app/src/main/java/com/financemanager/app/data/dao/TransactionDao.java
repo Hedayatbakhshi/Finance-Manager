@@ -193,4 +193,10 @@ public interface TransactionDao {
 
     @Query("SELECT * FROM transactions WHERE recurring_id = :recurringId")
     List<TransactionEntity> getForRecurring(long recurringId);
+
+    /** Income and expense rows in one currency, oldest first, for the PDF statement. */
+    @Query("SELECT t.* FROM transactions t JOIN accounts a ON a.id = t.account_id"
+            + " WHERE t.type IN ('INCOME', 'EXPENSE') AND t.date >= :fromDate AND t.date <= :toDate"
+            + " AND a.currency = :currency ORDER BY t.date ASC, t.id ASC")
+    List<TransactionEntity> getForStatement(long fromDate, long toDate, String currency);
 }

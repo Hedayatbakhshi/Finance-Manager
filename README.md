@@ -87,9 +87,9 @@ Run the normal `assembleRelease` once the lint dependencies are available.
 
 ### Everyday finance
 
-- **Dashboard** — net worth, monthly income/expense, spending chart, budget and
-  savings summaries, recent transactions, empty/loading states, a weekly/monthly
-  chart toggle and quick actions.
+- **Dashboard** — net worth, monthly income/expense with the change versus last
+  month, spending chart, budget and savings summaries, recent transactions,
+  empty/loading states, a weekly/monthly chart toggle and quick actions.
 - **Transactions** — income, expense and transfer entries; search; filters by
   type, category, account and date range; edit, duplicate and delete with undo.
   A transfer is one row
@@ -114,6 +114,9 @@ Run the normal `assembleRelease` once the lint dependencies are available.
 
 ### Data portability
 
+- **PDF statement** — a printable A4 statement for the current month with a
+  summary, expense breakdown and full transaction list, paginated automatically
+  and limited to accounts in the reporting currency.
 - **CSV import** — brings transactions back from a CSV exported by this app.
   Accounts and categories are matched by name and created when missing; rows with
   an unknown type, an unreadable date/amount or a transfer without a destination
@@ -324,6 +327,8 @@ expenses; all are written through the Storage Access Framework.
   up, encrypted or otherwise. Backups made before version 2 contain no household
   profiles.
 - No home-screen widget or launcher shortcuts; new entries start from the app.
+- PDF statements cover the current month only; an arbitrary date range is not
+  selectable yet.
 - Deleting an account also deletes its transactions through the foreign-key
   cascade. The confirmation dialog shows the affected transaction count.
 - Deleting a category reassigns its transactions to the built-in "Other"

@@ -32,6 +32,7 @@ import com.financemanager.app.utils.BackupManager;
 import com.financemanager.app.utils.CsvExporter;
 import com.financemanager.app.utils.CsvImporter;
 import com.financemanager.app.utils.DateUtils;
+import com.financemanager.app.utils.PdfStatementExporter;
 import com.financemanager.app.utils.ReportExporter;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -58,6 +59,14 @@ public class DataFragment extends Fragment {
             uri -> {
                 if (uri != null) {
                     runExportReport(uri);
+                }
+            });
+
+    private final ActivityResultLauncher<String> createStatement = registerForActivityResult(
+            new ActivityResultContracts.CreateDocument("application/pdf"),
+            uri -> {
+                if (uri != null) {
+                    runExportStatement(uri);
                 }
             });
 
@@ -120,6 +129,9 @@ public class DataFragment extends Fragment {
         addRow(binding.exportContainer, R.drawable.ic_nav_reports, R.string.export_report,
                 R.string.export_report_summary,
                 () -> createReport.launch(ReportExporter.suggestedFileName()));
+        addRow(binding.exportContainer, R.drawable.ic_action_download, R.string.export_statement,
+                R.string.export_statement_summary,
+                () -> createStatement.launch(PdfStatementExporter.suggestedFileName()));
         addRow(binding.exportContainer, R.drawable.ic_action_upload, R.string.import_csv,
                 R.string.import_csv_summary, () -> openCsv.launch(new String[]{
                         "text/csv", "text/comma-separated-values", "text/plain",
@@ -195,6 +207,24 @@ public class DataFragment extends Fragment {
             public void onError(String message) {
                 setBusy(false);
                 showError(R.string.export_failed);
+            }
+        });
+    }
+
+    private void runExportStatement(Uri uri) {
+        setBusy(true);
+        viewModel.exportStatement(uri, new FinanceRepository.Callback<Integer>() {
+            @Override
+            public void onSuccess(Integer value) {
+                setBusy(false);
+                Toast.makeText(requireContext(), R.string.statement_success,
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String message) {
+                setBusy(false);
+                showError(R.string.statement_failed);
             }
         });
     }

@@ -67,6 +67,8 @@
     <string name="balance_compared_last_month">%1$s compared with last month</string>
     <string name="balance_no_history">No previous month data yet</string>
     <string name="balance_compared_short">vs last month</string>
+    <string name="change_vs_last_month">%1$s vs last month</string>
+    <string name="no_last_month_data">No data for last month</string>
     <string name="income">Income</string>
     <string name="expenses">Expenses</string>
     <string name="this_month">This month</string>
@@ -436,6 +438,10 @@
     <string name="export_csv_summary">Save or share a spreadsheet of all transactions</string>
     <string name="export_report">Export financial report</string>
     <string name="export_report_summary">Save a text summary of your finances</string>
+    <string name="export_statement">Export PDF statement</string>
+    <string name="export_statement_summary">Save a printable statement for this month</string>
+    <string name="statement_success">Statement saved</string>
+    <string name="statement_failed">Could not create the statement. Please try again.</string>
     <string name="import_csv">Import transactions (CSV)</string>
     <string name="import_csv_summary">Add transactions from a CSV file exported by this app</string>
     <string name="import_success">Imported %1$d transactions · %2$d skipped</string>
@@ -465,6 +471,15 @@
     <string name="restore_title">Restore backup?</string>
     <string name="restore_message">This backup contains %1$d accounts, %2$d categories, %3$d transactions, %4$d budgets and %5$d goals.</string>
     <string name="restore_mode_hint">Merge keeps your current records and adds the backup. Replace deletes all current data first.</string>
+
+    <!-- PDF statement -->
+    <string name="pdf_statement_title">Monthly statement</string>
+    <string name="pdf_period">%1$s · %2$s</string>
+    <string name="pdf_generated">Generated %1$s</string>
+    <string name="pdf_transactions">Transactions</string>
+    <string name="pdf_no_transactions">No transactions this month</string>
+    <string name="pdf_no_expenses">No expenses recorded this month</string>
+    <string name="pdf_page">Page %1$d</string>
     <string name="restore_merge">Merge</string>
     <string name="restore_replace">Replace</string>
     <string name="replace_confirm_title">Replace all data?</string>

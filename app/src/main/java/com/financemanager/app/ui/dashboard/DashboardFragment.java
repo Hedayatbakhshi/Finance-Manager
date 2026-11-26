@@ -6,6 +6,7 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -186,6 +187,8 @@ public class DashboardFragment extends Fragment {
                 : Money.format(state.monthIncome, currency));
         binding.expenseAmount.setText(shouldMask() ? getString(R.string.masked_amount)
                 : Money.format(state.monthExpense, currency));
+        renderTrend(binding.incomeTrend, state.incomeChangePercent(), true);
+        renderTrend(binding.expenseTrend, state.expenseChangePercent(), false);
         renderWageUsage(state);
 
         binding.accountsSummary.setText(getString(R.string.accounts_summary,
@@ -215,6 +218,19 @@ public class DashboardFragment extends Fragment {
         renderInsights(state);
         renderBudget(state);
         renderChart(state);
+    }
+
+    /** Shows a change versus last month, colored by whether the change is favorable. */
+    private void renderTrend(TextView view, Double change, boolean increaseIsGood) {
+        if (change == null) {
+            view.setText(R.string.no_last_month_data);
+            return;
+        }
+        view.setText(getString(R.string.change_vs_last_month,
+                String.format(Locale.getDefault(), "%+.1f%%", change)));
+        boolean favorable = (change >= 0) == increaseIsGood;
+        view.setTextColor(ContextCompat.getColor(requireContext(),
+                favorable ? R.color.success : R.color.expense));
     }
 
     private void renderWageUsage(DashboardState state) {

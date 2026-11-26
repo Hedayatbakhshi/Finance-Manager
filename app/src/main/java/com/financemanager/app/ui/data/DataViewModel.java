@@ -11,6 +11,7 @@ import com.financemanager.app.di.AppContainer;
 import com.financemanager.app.utils.BackupManager;
 import com.financemanager.app.utils.CsvExporter;
 import com.financemanager.app.utils.CsvImporter;
+import com.financemanager.app.utils.PdfStatementExporter;
 import com.financemanager.app.utils.ReportExporter;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class DataViewModel extends ViewModel {
     private final CsvExporter csvExporter;
     private final CsvImporter csvImporter;
     private final ReportExporter reportExporter;
+    private final PdfStatementExporter pdfStatementExporter;
     private final BackupManager backupManager;
     private final String currency;
 
@@ -34,6 +36,7 @@ public class DataViewModel extends ViewModel {
         this.csvExporter = container.csvExporter();
         this.csvImporter = container.csvImporter();
         this.reportExporter = container.reportExporter();
+        this.pdfStatementExporter = container.pdfStatementExporter();
         this.backupManager = container.backupManager();
         this.currency = container.settings().getCurrency();
     }
@@ -59,6 +62,11 @@ public class DataViewModel extends ViewModel {
                 return bytes.length;
             }
         }, callback);
+    }
+
+    public void exportStatement(Uri uri, FinanceRepository.Callback<Integer> callback) {
+        repository.runAsync(() -> pdfStatementExporter.export(
+                uri, context.getContentResolver(), currency), callback);
     }
 
     public void backup(Uri uri, String password,
