@@ -223,7 +223,7 @@ public class HouseholdExpensesFragment extends Fragment {
         picker = PICK_MEMBER;
         List<PickerItem> items = new ArrayList<>();
         for (HouseholdMember member : members) {
-            items.add(new PickerItem(member.id, member.name, "", "action_person", "#5B7FA6"));
+            items.add(new PickerItem(member.id, member.name, "", "action_person", "#5A87C0"));
         }
         PickerBottomSheet.show(getParentFragmentManager(),
                 getString(R.string.household_all_members), items,
@@ -234,11 +234,11 @@ public class HouseholdExpensesFragment extends Fragment {
     private void pickRange() {
         picker = PICK_RANGE;
         List<PickerItem> items = new ArrayList<>();
-        items.add(new PickerItem(0, getString(R.string.household_all_time), "", "action_calendar", "#5B7FA6"));
+        items.add(new PickerItem(0, getString(R.string.household_all_time), "", "action_calendar", "#5A87C0"));
         items.add(new PickerItem(1, getString(R.string.household_this_month), "",
-                "action_calendar", "#5B7FA6"));
+                "action_calendar", "#5A87C0"));
         items.add(new PickerItem(2, getString(R.string.household_last_month), "",
-                "action_calendar", "#5B7FA6"));
+                "action_calendar", "#5A87C0"));
         PickerBottomSheet.show(getParentFragmentManager(), getString(R.string.filter_date),
                 items, -1, false, null);
     }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Brand palette (light) -->
-    <color name="primary">#172B4D</color>
-    <color name="primary_dark">#101D33</color>
-    <color name="secondary">#5B7FA6</color>
-    <color name="background">#F5F7FA</color>
+    <color name="primary">#2E75D4</color>
+    <color name="primary_dark">#1F58A8</color>
+    <color name="secondary">#5A87C0</color>
+    <color name="background">#F6F8FB</color>
     <color name="surface">#FFFFFF</color>
     <color name="on_primary">#FFFFFF</color>
     <color name="text_primary">#172033</color>
@@ -15,28 +15,28 @@
     <color name="divider">#E8ECF2</color>
     <!-- Frosted, floating bottom navigation -->
     <color name="nav_glass_fill">#E6FFFFFF</color>
-    <color name="nav_glass_stroke">#1A172B4D</color>
+    <color name="nav_glass_stroke">#1A2E75D4</color>
 
     <color name="surface_variant">#EDF1F7</color>
-    <color name="primary_container">#DCE6F5</color>
-    <color name="on_primary_container">#172B4D</color>
-    <color name="secondary_container">#E7EEF7</color>
+    <color name="primary_container">#DDEBFC</color>
+    <color name="on_primary_container">#0B2A47</color>
+    <color name="secondary_container">#E7EFF9</color>
     <color name="success_container">#E1F4EC</color>
     <color name="expense_container">#FBEAEA</color>
     <color name="warning_container">#FCF1DE</color>
-    <color name="ripple">#1F172B4D</color>
+    <color name="ripple">#1F2E75D4</color>
     <color name="scrim">#66000000</color>
     <color name="chart_grid">#E8ECF2</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
 
-    <color name="balance_card_start">#1B345A</color>
-    <color name="balance_card_end">#172B4D</color>
+    <color name="balance_card_start">#2E75D4</color>
+    <color name="balance_card_end">#1D4E9E</color>
 
     <!-- App background gradient -->
     <color name="app_gradient_start">#F7FAFF</color>
-    <color name="app_gradient_end">#ECF2F9</color>
-    <color name="app_gradient_glow">#145B7FA6</color>
+    <color name="app_gradient_end">#EBF2FB</color>
+    <color name="app_gradient_glow">#1F5A87C0</color>
 
     <!-- Dark theme: OLED black with a blue accent -->
     <color name="dark_background">#000000</color>

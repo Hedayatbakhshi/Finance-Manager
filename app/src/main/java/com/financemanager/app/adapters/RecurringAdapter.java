@@ -102,7 +102,7 @@ public class RecurringAdapter extends ListAdapter<RecurringTransaction, Recurrin
                 binding.amount.setTextColor(UiUtils.color(context, R.color.expense));
             }
             binding.icon.setImageResource(R.drawable.ic_action_repeat);
-            UiUtils.tintIconTile(binding.iconContainer, binding.icon, "#5B7FA6");
+            UiUtils.tintIconTile(binding.iconContainer, binding.icon, "#5A87C0");
             binding.active.setOnCheckedChangeListener(null);
             binding.active.setChecked(recurring.active);
             binding.active.setOnCheckedChangeListener((buttonView, isChecked) -> {

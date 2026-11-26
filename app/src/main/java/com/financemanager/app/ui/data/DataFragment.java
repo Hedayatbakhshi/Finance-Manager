@@ -154,7 +154,7 @@ public class DataFragment extends Fragment {
         row.icon.setImageResource(icon);
         row.title.setText(title);
         row.subtitle.setText(subtitle);
-        UiUtils.tintIconTile(row.iconContainer, row.icon, "#5B7FA6");
+        UiUtils.tintIconTile(row.iconContainer, row.icon, "#5A87C0");
         row.getRoot().setOnClickListener(v -> {
             if (!busy) {
                 action.run();

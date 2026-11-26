@@ -104,7 +104,7 @@ public class TransactionAdapter
                         R.string.transfer_between, from, to) + " · "
                         + DateUtils.friendlyDate(binding.getRoot().getContext(), transaction.date));
                 binding.icon.setImageResource(R.drawable.ic_action_transfer);
-                UiUtils.tintIconTile(binding.iconContainer, binding.icon, "#5B7FA6");
+                UiUtils.tintIconTile(binding.iconContainer, binding.icon, "#5A87C0");
                 binding.amount.setText(Money.format(transaction.amountMinor, currency));
                 binding.amount.setTextColor(MaterialColors.getColor(binding.getRoot(),
                         com.google.android.material.R.attr.colorOnSurface));

@@ -170,7 +170,7 @@ public class HouseholdExpenseEditorFragment extends Fragment {
         List<PickerItem> items = new ArrayList<>();
         for (HouseholdCategory link : categoryLinks) {
             PickerItem item = new PickerItem(link.id, categoryName(link.categoryId), "",
-                    "cat_other", "#5B7FA6");
+                    "cat_other", "#5A87C0");
             items.add(item);
             item.title = categoryName(link.categoryId);
         }
@@ -204,7 +204,7 @@ public class HouseholdExpenseEditorFragment extends Fragment {
         picker = PICK_MEMBER;
         List<PickerItem> items = new ArrayList<>();
         for (HouseholdMember member : members) {
-            items.add(new PickerItem(member.id, member.name, "", "action_person", "#5B7FA6"));
+            items.add(new PickerItem(member.id, member.name, "", "action_person", "#5A87C0"));
         }
         PickerBottomSheet.show(getParentFragmentManager(),
                 getString(R.string.household_all_members), items,
