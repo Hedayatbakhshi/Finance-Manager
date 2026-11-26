@@ -66,6 +66,9 @@ public interface AccountDao {
     @Query("SELECT * FROM accounts WHERE id = :id")
     Account getById(long id);
 
+    @Query("SELECT * FROM accounts WHERE name = :name LIMIT 1")
+    Account findByName(String name);
+
     @Query("SELECT * FROM accounts ORDER BY created_at ASC")
     List<Account> getAllSync();
 

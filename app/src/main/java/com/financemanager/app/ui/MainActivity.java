@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        applyScreenshotPolicy();
         applyWindowInsets();
         setUpNavigation();
         binding.getRoot().setVisibility(View.INVISIBLE);
@@ -191,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        applyScreenshotPolicy();
         if (container.sessionManager().requiresUnlock(container.settings())) {
             requestUnlock();
         } else {
@@ -208,6 +211,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void revealContent() {
         binding.getRoot().setVisibility(View.VISIBLE);
+    }
+
+    private void applyScreenshotPolicy() {
+        if (container.settings().isBlockScreenshots()) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
     }
 
     /** Switches to one of the five bottom navigation destinations. */

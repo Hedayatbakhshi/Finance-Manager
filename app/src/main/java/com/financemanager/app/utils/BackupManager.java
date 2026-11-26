@@ -34,15 +34,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Backup format (version 2) is a single JSON document containing every record.
- * Restore merges into existing data without overwriting anything: records receive
- * fresh ids and foreign keys are remapped. Category names that already exist are
- * reused instead of duplicated.
+ * Backup format (version 2) is a single document containing every record. It can
+ * be written as plain JSON or wrapped in a password-encrypted envelope (see
+ * {@link BackupCrypto}); encrypted files are detected automatically on restore.
+ *
+ * <p>Restore supports two modes. Merge (the default) adds records with fresh ids and
+ * remapped foreign keys, reusing categories with the same name. Replace deletes all
+ * existing records in the same transaction first, so a backup can be restored onto a
+ * clean slate without duplicating totals.</p>
  */
 public class BackupManager {
 
     private static final String TAG = "BackupManager";
     public static final int FORMAT_VERSION = 2;
+
+    /** Restore failed because the file is encrypted and no password was supplied. */
+    public static final String ERROR_PASSWORD_REQUIRED = "PASSWORD_REQUIRED";
+    /** Restore failed because the supplied password did not decrypt the file. */
+    public static final String ERROR_WRONG_PASSWORD = "WRONG_PASSWORD";
     private static final String KEY_FORMAT = "format";
     private static final String KEY_VERSION = "version";
     private static final String KEY_APP_VERSION = "app_version";
@@ -57,7 +66,12 @@ public class BackupManager {
     }
 
     public static String suggestedFileName() {
-        return "finance-manager-backup-" + LocalDate.now() + ".json";
+        return suggestedFileName(false);
+    }
+
+    public static String suggestedFileName(boolean encrypted) {
+        return "finance-manager-backup-" + LocalDate.now()
+                + (encrypted ? ".fmb" : ".json");
     }
 
     /** Snapshot counts shown in the restore confirmation. */
@@ -88,12 +102,29 @@ public class BackupManager {
     // ------------------------------------------------------------------
 
     public BackupInfo writeBackup(Uri uri) throws IOException, JSONException {
+        return writeBackup(uri, null);
+    }
+
+    /**
+     * Writes a backup. A non-empty password encrypts the whole document with
+     * AES-256-GCM; otherwise the file is readable JSON.
+     */
+    public BackupInfo writeBackup(Uri uri, String password) throws IOException, JSONException {
         JSONObject root = buildJson();
+        byte[] plaintext = root.toString(2).getBytes(StandardCharsets.UTF_8);
+        byte[] payload = plaintext;
+        if (password != null && !password.isEmpty()) {
+            try {
+                payload = BackupCrypto.encrypt(plaintext, password);
+            } catch (BackupCrypto.CryptoException e) {
+                throw new IOException(e.getMessage(), e);
+            }
+        }
         try (OutputStream stream = context.getContentResolver().openOutputStream(uri, "w")) {
             if (stream == null) {
                 throw new IOException("Could not open the selected file");
             }
-            stream.write(root.toString(2).getBytes(StandardCharsets.UTF_8));
+            stream.write(payload);
         }
         return count(root);
     }
@@ -259,18 +290,35 @@ public class BackupManager {
     // ------------------------------------------------------------------
 
     public BackupInfo readInfo(Uri uri) throws BackupException {
-        JSONObject root = readJson(uri);
+        return readInfo(uri, null);
+    }
+
+    public BackupInfo readInfo(Uri uri, String password) throws BackupException {
+        JSONObject root = readJson(uri, password);
         validate(root);
         return count(root);
     }
 
     public BackupInfo restore(Uri uri) throws BackupException {
-        JSONObject root = readJson(uri);
+        return restore(uri, null, false);
+    }
+
+    /**
+     * Restores a backup on the background thread. When {@code replace} is true every
+     * existing record is deleted inside the same transaction before the backup is
+     * inserted, so a failure leaves the previous data untouched.
+     */
+    public BackupInfo restore(Uri uri, String password, boolean replace)
+            throws BackupException {
+        JSONObject root = readJson(uri, password);
         validate(root);
         BackupInfo info = count(root);
         try {
             database.runInTransaction(() -> {
                 try {
+                    if (replace) {
+                        DataEraser.clearAll(database);
+                    }
                     restoreInternal(root);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -559,7 +607,8 @@ public class BackupManager {
     // Helpers
     // ------------------------------------------------------------------
 
-    private JSONObject readJson(Uri uri) throws BackupException {
+    private JSONObject readJson(Uri uri, String password) throws BackupException {
+        byte[] bytes;
         try (InputStream stream = context.getContentResolver().openInputStream(uri)) {
             if (stream == null) {
                 throw new BackupException("Could not read the selected file");
@@ -573,11 +622,29 @@ public class BackupManager {
                     throw new BackupException("Backup file is too large");
                 }
             }
-            return new JSONObject(buffer.toString(StandardCharsets.UTF_8.name()));
-        } catch (JSONException e) {
-            throw new BackupException("This file is not a valid backup", e);
+            bytes = buffer.toByteArray();
         } catch (IOException e) {
             throw new BackupException("Could not read the selected file", e);
+        }
+
+        if (BackupCrypto.isEncrypted(bytes)) {
+            if (password == null || password.isEmpty()) {
+                throw new BackupException(ERROR_PASSWORD_REQUIRED);
+            }
+            try {
+                bytes = BackupCrypto.decrypt(bytes, password);
+            } catch (BackupCrypto.CryptoException e) {
+                if (e.isWrongPassword()) {
+                    throw new BackupException(ERROR_WRONG_PASSWORD, e);
+                }
+                throw new BackupException("Could not decrypt this backup", e);
+            }
+        }
+
+        try {
+            return new JSONObject(new String(bytes, StandardCharsets.UTF_8));
+        } catch (JSONException e) {
+            throw new BackupException("This file is not a valid backup", e);
         }
     }
 

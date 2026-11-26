@@ -12,6 +12,7 @@ import com.financemanager.app.security.SessionManager;
 import com.financemanager.app.security.SettingsRepository;
 import com.financemanager.app.utils.BackupManager;
 import com.financemanager.app.utils.CsvExporter;
+import com.financemanager.app.utils.CsvImporter;
 import com.financemanager.app.utils.ReportExporter;
 
 /** Manual dependency graph, created once by the Application class. */
@@ -24,6 +25,7 @@ public class AppContainer {
     private final NotificationHelper notificationHelper;
     private final BackupManager backupManager;
     private final CsvExporter csvExporter;
+    private final CsvImporter csvImporter;
     private final ReportExporter reportExporter;
 
     public AppContainer(@NonNull Context context) {
@@ -35,6 +37,7 @@ public class AppContainer {
         repository = new FinanceRepository(database, appContext);
         backupManager = new BackupManager(appContext, database);
         csvExporter = new CsvExporter(appContext, database);
+        csvImporter = new CsvImporter(appContext, database);
         reportExporter = new ReportExporter(database);
         // Keep budget alerts in sync whenever money moves.
         repository.setDataChangeListener(() -> BudgetAlertChecker.checkAll(
@@ -67,6 +70,10 @@ public class AppContainer {
 
     public CsvExporter csvExporter() {
         return csvExporter;
+    }
+
+    public CsvImporter csvImporter() {
+        return csvImporter;
     }
 
     public ReportExporter reportExporter() {

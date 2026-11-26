@@ -3,6 +3,7 @@ package com.financemanager.app.ui.lock;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,6 +44,9 @@ public class LockActivity extends AppCompatActivity {
             setResult(RESULT_OK);
             finish();
             return;
+        }
+        if (container.settings().isBlockScreenshots()) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding = ActivityLockBinding.inflate(getLayoutInflater());

@@ -91,7 +91,8 @@ Run the normal `assembleRelease` once the lint dependencies are available.
   savings summaries, recent transactions, empty/loading states, a weekly/monthly
   chart toggle and quick actions.
 - **Transactions** — income, expense and transfer entries; search; filters by
-  type, category, account and date range; edit and delete. A transfer is one row
+  type, category, account and date range; edit, duplicate and delete with undo.
+  A transfer is one row
   moving money between two accounts, never counted as income or expense.
 - **Accounts** — cash, bank, savings, credit and wallet accounts, each with its
   own currency, colour and Material Symbol icon; computed balances; per-account
@@ -108,8 +109,24 @@ Run the normal `assembleRelease` once the lint dependencies are available.
   category breakdown with pie chart and monthly trend bar chart.
 - **Settings** — display name, default currency, light/dark/system theme,
   language (English/Persian), hide balances, app lock (PIN + optional
-  biometrics), auto-lock delay, notification toggles, backup/restore and
-  destructive-data confirmation.
+  biometrics) with PIN change, screenshot blocking, auto-lock delay, notification
+  toggles, backup/restore and destructive-data confirmation.
+
+### Data portability
+
+- **CSV import** — brings transactions back from a CSV exported by this app.
+  Accounts and categories are matched by name and created when missing; rows with
+  an unknown type, an unreadable date/amount or a transfer without a destination
+  are skipped and counted. The whole file is inserted in one transaction.
+- **Encrypted backups** — a backup can be protected with a password. Records are
+  encrypted with AES-256-GCM using a PBKDF2-HMAC-SHA256 key and a random salt and
+  IV; the file is detected automatically on restore. Without a password the backup
+  stays readable JSON.
+- **Restore modes** — **Merge** keeps current records and adds the backup;
+  **Replace** deletes all current data in the same transaction and then restores,
+  so restoring onto a populated database no longer duplicates totals.
+- **Backup status** — the backup row shows the date and time of the last
+  successful backup made on this device.
 
 ### Household expenses
 
@@ -168,7 +185,8 @@ app/src/main/java/com/financemanager/app/
 ├── security/                      SessionManager, SettingsRepository, biometrics
 ├── notifications/                 channel setup, budget alert checker
 ├── workers/                       WorkManager jobs and scheduler
-└── utils/                         Money, DateUtils, CSV/backup/report exporters
+└── utils/                         Money, DateUtils, CSV import/export, BackupCrypto,
+                                   backup/report writers, DataEraser
 ```
 
 Room is the only source of truth. There is no fake or hardcoded financial data:
@@ -210,6 +228,10 @@ configured default currency with a zero opening balance.
   when the session expires.
 - Exports and backups are written only to a user-selected Storage Access
   Framework location.
+- Backups can optionally be encrypted with AES-256-GCM; the key is derived from a
+  user password with PBKDF2-HMAC-SHA256 (120,000 iterations, random salt) and is
+  never stored. Wrong passwords and modified files fail authentication instead of
+  returning partial data.
 
 ## Database and migrations
 
@@ -227,10 +249,12 @@ future schema change must ship a similar migration.
 
 ## Tests
 
-Unit tests (JVM, no device required) — 37 tests covering money parsing and
-formatting, date bounds, CSV escaping/output, recurrence advancement,
+Unit tests (JVM, no device required) — 51 tests covering money parsing and
+formatting, date bounds, CSV escaping/output and import parsing, encrypted backup
+round-trips/wrong passwords/tamper detection, recurrence advancement,
 transaction and household filtering, household money formatting and
-per-currency totals:
+per-currency totals. CI runs the unit tests and builds the debug APK on every
+push and pull request (`.github/workflows/android.yml`).
 
 ```bash
 ./gradlew :app:testDebugUnitTest
@@ -260,20 +284,30 @@ To run a single class, add `-e class com.financemanager.app.SmokeTest` (or
 
 ## Backup format
 
-`finance-manager-backup.json` is a single JSON document with a `format` marker,
-`version: 2`, app version, export timestamp and arrays for accounts, categories,
-transactions, budgets, savings goals, recurring transactions, households,
-household members and household categories. Each record keeps the same field
-names as the database columns. Version 1 backups remain restorable; their
-household arrays are simply absent.
+A plain backup (`finance-manager-backup-YYYY-MM-DD.json`) is a single JSON
+document with a `format` marker, `version: 2`, app version, export timestamp and
+arrays for accounts, categories, transactions, budgets, savings goals, recurring
+transactions, households, household members and household categories. Each
+record keeps the same field names as the database columns. Version 1 backups
+remain restorable; their household arrays are simply absent.
 
-Restore is **additive**: it inserts new accounts and households (using unique
-names such as `Cash (2)`), reuses existing categories with the same name and
-type, and remaps foreign keys. Restoring the same backup twice therefore
-duplicates accounts, households and transactions. To replace data, use
-**Clear all data** first, then restore. The whole restore runs in one Room
-transaction and rolls back on error. Receipt image files are not included in the
-JSON backup.
+When a password is supplied the same JSON is encrypted and saved as
+`finance-manager-backup-YYYY-MM-DD.fmb`. The envelope starts with `FMBENC1`,
+followed by the PBKDF2 iteration count, base64 salt, IV and AES-256-GCM
+ciphertext (which includes the authentication tag). Restore detects the marker
+and asks for the password; a wrong password or a modified file is rejected.
+
+Restore offers two modes. **Merge** inserts new accounts and households (using
+unique names such as `Cash (2)`), reuses existing categories with the same name
+and type, and remaps foreign keys, so restoring the same backup twice duplicates
+records. **Replace** deletes every current record and then applies the backup,
+both inside one Room transaction, so a failed restore rolls back to the previous
+data. Receipt image files are not included in either kind of backup.
+
+CSV exports are separate files for transactions, reports and household
+expenses, all written through the Storage Access Framework. The transaction CSV
+can be imported again from **Backup & restore → Import transactions**; import is
+additive, so importing the same file twice duplicates rows.
 
 Separate CSV exports are available for transactions, reports and household
 expenses; all are written through the Storage Access Framework.
@@ -282,10 +316,14 @@ expenses; all are written through the Storage Access Framework.
 
 - No currency conversion or exchange rates; totals intentionally exclude
   accounts or household expenses recorded in another currency.
-- Restore merges rather than replaces, so restoring into a populated database
-  produces duplicate accounts/households and therefore duplicated totals.
-- Receipts are stored only on the device and are not backed up. Backups made
-  before version 2 contain no household profiles.
+- Merge restore (and CSV import) is additive: applying the same file twice
+  duplicates accounts, households or transactions. Use **Replace** restore when
+  the goal is to restore one exact snapshot.
+- Receipt attachments exist only for household expenses; regular transactions
+  cannot attach one. Receipts are stored only on the device and are not backed
+  up, encrypted or otherwise. Backups made before version 2 contain no household
+  profiles.
+- No home-screen widget or launcher shortcuts; new entries start from the app.
 - Deleting an account also deletes its transactions through the foreign-key
   cascade. The confirmation dialog shows the affected transaction count.
 - Deleting a category reassigns its transactions to the built-in "Other"
@@ -295,14 +333,21 @@ expenses; all are written through the Storage Access Framework.
   WorkManager's approximate scheduling; they are not exact alarms.
 - Release signing uses a locally generated keystore, but Play Store packaging
   (bundle, upload key, store listing) is not configured.
+- Release builds enable R8 with `app/proguard-rules.pro`; the release APK builds
+  successfully, but minified runtime behaviour has not been exercised on a device
+  yet.
 - Lint could not run offline in the development environment; unit tests,
   instrumentation tests and manual emulator checks were still run. Pre-existing
   lint warnings remain: `GestureBackNavigation`, `NewApi` and `DiffUtilEquals`.
 
 ## Verification notes
 
-The latest build passed `:app:assembleDebug --offline` and
-`:app:testDebugUnitTest --offline`; the three instrumentation tests passed via
-`adb shell am instrument`. Manual checks on a Persian/RTL emulator with AFN
-confirmed the dashboard quick action (`مصرف هزینه`), household profiles, AFN
-budget/remaining values and the household expense list header (`۰ تراکنش · ؋۰٫۰۰`).
+The latest build passed `:app:assembleDebug --offline`,
+`:app:testDebugUnitTest --offline` (51 tests, including the new
+`BackupCryptoTest` and `CsvImportParserTest`) and
+`:app:assembleRelease --offline -x lintVitalRelease` with R8 enabled. Earlier
+instrumentation runs passed all three tests via `adb shell am instrument`; the
+new backup/import screens have not been exercised on a device yet. Manual checks
+on a Persian/RTL emulator with AFN confirmed the dashboard quick action
+(`مصرف هزینه`), household profiles, AFN budget/remaining values and the household
+expense list header (`۰ تراکنش · ؋۰٫۰۰`).

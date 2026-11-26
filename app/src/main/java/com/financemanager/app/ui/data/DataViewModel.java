@@ -10,6 +10,7 @@ import com.financemanager.app.data.FinanceRepository;
 import com.financemanager.app.di.AppContainer;
 import com.financemanager.app.utils.BackupManager;
 import com.financemanager.app.utils.CsvExporter;
+import com.financemanager.app.utils.CsvImporter;
 import com.financemanager.app.utils.ReportExporter;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class DataViewModel extends ViewModel {
     private final Context context;
     private final FinanceRepository repository;
     private final CsvExporter csvExporter;
+    private final CsvImporter csvImporter;
     private final ReportExporter reportExporter;
     private final BackupManager backupManager;
     private final String currency;
@@ -30,6 +32,7 @@ public class DataViewModel extends ViewModel {
         this.context = context.getApplicationContext();
         this.repository = container.repository();
         this.csvExporter = container.csvExporter();
+        this.csvImporter = container.csvImporter();
         this.reportExporter = container.reportExporter();
         this.backupManager = container.backupManager();
         this.currency = container.settings().getCurrency();
@@ -58,16 +61,23 @@ public class DataViewModel extends ViewModel {
         }, callback);
     }
 
-    public void backup(Uri uri, FinanceRepository.Callback<BackupManager.BackupInfo> callback) {
-        repository.runAsync(() -> backupManager.writeBackup(uri), callback);
+    public void backup(Uri uri, String password,
+                       FinanceRepository.Callback<BackupManager.BackupInfo> callback) {
+        repository.runAsync(() -> backupManager.writeBackup(uri, password), callback);
     }
 
-    public void inspect(Uri uri, FinanceRepository.Callback<BackupManager.BackupInfo> callback) {
-        repository.runAsync(() -> backupManager.readInfo(uri), callback);
+    public void inspect(Uri uri, String password,
+                        FinanceRepository.Callback<BackupManager.BackupInfo> callback) {
+        repository.runAsync(() -> backupManager.readInfo(uri, password), callback);
     }
 
-    public void restore(Uri uri, FinanceRepository.Callback<BackupManager.BackupInfo> callback) {
-        repository.runAsync(() -> backupManager.restore(uri), callback);
+    public void restore(Uri uri, String password, boolean replace,
+                        FinanceRepository.Callback<BackupManager.BackupInfo> callback) {
+        repository.runAsync(() -> backupManager.restore(uri, password, replace), callback);
+    }
+
+    public void importCsv(Uri uri, FinanceRepository.Callback<CsvImporter.Result> callback) {
+        repository.runAsync(() -> csvImporter.importCsv(uri, currency), callback);
     }
 
     public void clearAll(FinanceRepository.Callback<Void> callback) {

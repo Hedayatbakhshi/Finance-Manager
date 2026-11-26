@@ -35,6 +35,8 @@ public class SettingsRepository {
     private static final String KEY_CURRENCY = "default_currency";
     private static final String KEY_THEME = "theme_mode";
     private static final String KEY_HIDE_BALANCE = "hide_balance";
+    private static final String KEY_BLOCK_SCREENSHOTS = "block_screenshots";
+    private static final String KEY_LAST_BACKUP = "last_backup_at";
     private static final String KEY_PIN_ENABLED = "pin_enabled";
     private static final String KEY_PIN_SALT = "pin_salt";
     private static final String KEY_PIN_HASH = "pin_hash";
@@ -125,6 +127,23 @@ public class SettingsRepository {
 
     public void setHideBalance(boolean hide) {
         prefs.edit().putBoolean(KEY_HIDE_BALANCE, hide).apply();
+    }
+
+    public boolean isBlockScreenshots() {
+        return prefs.getBoolean(KEY_BLOCK_SCREENSHOTS, false);
+    }
+
+    public void setBlockScreenshots(boolean block) {
+        prefs.edit().putBoolean(KEY_BLOCK_SCREENSHOTS, block).apply();
+    }
+
+    /** Wall-clock time of the last successful backup, 0 when none has been made. */
+    public long getLastBackupAt() {
+        return prefs.getLong(KEY_LAST_BACKUP, 0);
+    }
+
+    public void setLastBackupAt(long millis) {
+        prefs.edit().putLong(KEY_LAST_BACKUP, millis).apply();
     }
 
     public boolean isSeeded() {

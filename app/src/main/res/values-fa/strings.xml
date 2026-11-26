@@ -139,6 +139,7 @@
     <string name="empty_transactions_filtered_title">تراکنشی مطابق با جستجو پیدا نشد</string>
     <string name="empty_transactions_filtered_message">جستجو یا فیلترها را تغییر دهید.</string>
     <string name="transaction_deleted">تراکنش حذف شد</string>
+    <string name="transaction_restored">تراکنش بازگردانده شد</string>
     <string name="date_range_all">هر تاریخی</string>
     <string name="date_range_week">این هفته</string>
     <string name="date_range_month">این ماه</string>
@@ -382,6 +383,7 @@
     <string name="pin_mismatch">پین‌ها یکسان نیستند. دوباره تلاش کنید.</string>
     <string name="pin_length_error">پین باید بین ۴ تا ۸ رقم باشد.</string>
     <string name="pin_incorrect">پین نادرست است. دوباره تلاش کنید.</string>
+    <string name="pin_updated">پین به‌روزرسانی شد</string>
     <string name="pin_forgot">پین را فراموش کرده‌اید؟ پاک کردن داده‌های برنامه آن را بازنشانی می‌کند، اما رکوردهای شما حذف می‌شوند.</string>
     <string name="biometric_unlock">باز کردن با زیست‌سنجی</string>
     <string name="biometric_summary">در صورت امکان از اثر انگشت یا چهره استفاده کنید</string>
@@ -396,6 +398,8 @@
     <string name="auto_lock_1_min">پس از ۱ دقیقه</string>
     <string name="auto_lock_5_min">پس از ۵ دقیقه</string>
     <string name="auto_lock_never">هرگز</string>
+    <string name="block_screenshots">مسدود کردن اسکرین‌شات</string>
+    <string name="block_screenshots_summary">محتوای برنامه در اسکرین‌شات‌ها و پیش‌نمایش برنامه‌های اخیر پنهان می‌شود</string>
     <string name="unlock">باز کردن</string>
 
     <string name="notifications">اعلان‌ها</string>
@@ -432,8 +436,20 @@
     <string name="export_csv_summary">صفحه‌گسترده‌ای از همه تراکنش‌ها ذخیره یا به اشتراک بگذارید</string>
     <string name="export_report">صدور گزارش مالی</string>
     <string name="export_report_summary">خلاصه متنی از وضعیت مالی خود ذخیره کنید</string>
+    <string name="import_csv">وارد کردن تراکنش‌ها (CSV)</string>
+    <string name="import_csv_summary">افزودن تراکنش‌ها از فایل CSV که با همین برنامه صادر شده است</string>
+    <string name="import_success">%1$d تراکنش وارد شد · %2$d نادیده گرفته شد</string>
+    <string name="import_failed">وارد کردن این فایل CSV ممکن نشد.</string>
     <string name="backup_data">پشتیبان‌گیری از داده‌ها</string>
-    <string name="backup_summary">همه رکوردها را در فایلی که خودتان کنترل می‌کنید ذخیره کنید</string>
+    <string name="backup_summary">همه رکوردها را در فایلی ساده یا رمزنگاری‌شده ذخیره کنید</string>
+    <string name="last_backup">آخرین پشتیبان: %1$s</string>
+    <string name="backup_password_title">رمز عبور پشتیبان</string>
+    <string name="backup_password_message">برای رمزنگاری این پشتیبان یک رمز عبور اختیاری وارد کنید. برای ذخیرهٔ فایل JSON بدون رمز، خالی بگذارید.</string>
+    <string name="backup_password_hint">رمز عبور (اختیاری)</string>
+    <string name="restore_password_title">این پشتیبان رمزنگاری شده است</string>
+    <string name="restore_password_message">رمز عبوری را که هنگام ساخت این پشتیبان تعیین کردید وارد کنید.</string>
+    <string name="wrong_password">رمز عبور نادرست است.</string>
+    <string name="password_required">رمز عبور پشتیبان را وارد کنید.</string>
     <string name="restore_data">بازیابی پشتیبان</string>
     <string name="restore_summary">رکوردها را از پشتیبان مدیر مالی وارد کنید</string>
     <string name="clear_data">پاک کردن همه داده‌ها</string>
@@ -447,7 +463,13 @@
     <string name="backup_success">پشتیبان ذخیره شد</string>
     <string name="backup_failed">ساخت پشتیبان ممکن نشد.</string>
     <string name="restore_title">بازیابی پشتیبان؟</string>
-    <string name="restore_message">%1$d حساب، %2$d دسته‌بندی، %3$d تراکنش، %4$d بودجه و %5$d هدف با رکوردهای فعلی شما ادغام می‌شوند. چیزی بازنویسی نمی‌شود.</string>
+    <string name="restore_message">این پشتیبان شامل %1$d حساب، %2$d دسته‌بندی، %3$d تراکنش، %4$d بودجه و %5$d هدف است.</string>
+    <string name="restore_mode_hint">ادغام رکوردهای فعلی را نگه می‌دارد و پشتیبان را اضافه می‌کند. جایگزینی ابتدا همهٔ داده‌های فعلی را حذف می‌کند.</string>
+    <string name="restore_merge">ادغام</string>
+    <string name="restore_replace">جایگزینی</string>
+    <string name="replace_confirm_title">همهٔ داده‌ها جایگزین شوند؟</string>
+    <string name="replace_confirm_message">همهٔ حساب‌ها، تراکنش‌ها، بودجه‌ها، اهداف و خانوارهای فعلی حذف می‌شوند و سپس %1$d تراکنش از پشتیبان بازیابی می‌شود. این کار بازگشت‌پذیر نیست.</string>
+    <string name="replace_confirm">حذف و بازیابی</string>
     <string name="restore_confirm">بازیابی</string>
     <string name="restore_success">پشتیبان بازیابی شد</string>
     <string name="restore_failed">این فایل یک پشتیبان معتبر مدیر مالی نیست.</string>

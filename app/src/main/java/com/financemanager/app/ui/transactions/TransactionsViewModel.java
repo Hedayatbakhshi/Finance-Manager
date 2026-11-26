@@ -10,6 +10,7 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.financemanager.app.data.FinanceRepository;
+import com.financemanager.app.data.entity.TransactionEntity;
 import com.financemanager.app.models.TransactionFilter;
 import com.financemanager.app.models.TransactionWithDetails;
 
@@ -70,6 +71,11 @@ public class TransactionsViewModel extends ViewModel {
 
     public void deleteTransaction(long id, FinanceRepository.Callback<Void> callback) {
         repository.deleteTransaction(id, callback);
+    }
+
+    public void restoreTransaction(TransactionEntity transaction,
+                                  FinanceRepository.Callback<Long> callback) {
+        repository.restoreTransaction(transaction, callback);
     }
 
     @Override

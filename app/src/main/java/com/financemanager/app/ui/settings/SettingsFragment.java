@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -63,6 +64,7 @@ public class SettingsFragment extends Fragment {
         binding.languageRow.getRoot().setOnClickListener(v -> pickLanguage());
         binding.themeRow.getRoot().setOnClickListener(v -> pickTheme());
         binding.autoLockRow.getRoot().setOnClickListener(v -> pickAutoLock());
+        binding.changePinRow.getRoot().setOnClickListener(v -> changePin());
         binding.dataRow.getRoot().setOnClickListener(v -> navigate(R.id.data));
         binding.aboutRow.getRoot().setOnClickListener(v -> navigate(R.id.about));
         binding.clearRow.getRoot().setOnClickListener(v -> confirmClearData());
@@ -79,6 +81,8 @@ public class SettingsFragment extends Fragment {
             }
             binding.biometricRow.switchWidget.performClick();
         });
+        binding.blockScreenshotsRow.getRoot().setOnClickListener(v ->
+                binding.blockScreenshotsRow.switchWidget.performClick());
         binding.notifBudgetRow.getRoot().setOnClickListener(v ->
                 binding.notifBudgetRow.switchWidget.performClick());
         binding.notifRecurringRow.getRoot().setOnClickListener(v ->
@@ -103,6 +107,17 @@ public class SettingsFragment extends Fragment {
         valueRow(binding.themeRow, R.string.theme, 0, themeLabel(settings.getThemeMode()));
         valueRow(binding.autoLockRow, R.string.auto_lock, R.string.auto_lock_summary,
                 autoLockLabel(settings.getAutoLockMinutes()));
+
+        boolean hasPin = settings.hasPin();
+        binding.changePinRow.getRoot().setVisibility(hasPin ? View.VISIBLE : View.GONE);
+        binding.dividerChangePin.setVisibility(hasPin ? View.VISIBLE : View.GONE);
+        valueRow(binding.changePinRow, R.string.change_pin, 0, "");
+        switchRow(binding.blockScreenshotsRow, R.string.block_screenshots,
+                R.string.block_screenshots_summary, settings.isBlockScreenshots(),
+                (button, checked) -> {
+                    settings.setBlockScreenshots(checked);
+                    applyScreenshotPolicy(checked);
+                });
 
         switchRow(binding.hideBalanceRow, R.string.hide_balance,
                 R.string.hide_balance_summary, settings.isHideBalance(), (button, checked) -> {
@@ -310,6 +325,24 @@ public class SettingsFragment extends Fragment {
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
+    }
+
+    private void changePin() {
+        if (!settings.hasPin()) {
+            return;
+        }
+        showPinDialog(true, () -> {
+            render();
+            Toast.makeText(requireContext(), R.string.pin_updated, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void applyScreenshotPolicy(boolean block) {
+        if (block) {
+            requireActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        } else {
+            requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
     }
 
     private void pickAutoLock() {

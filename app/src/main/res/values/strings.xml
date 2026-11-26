@@ -139,6 +139,7 @@
     <string name="empty_transactions_filtered_title">No matching transactions</string>
     <string name="empty_transactions_filtered_message">Try adjusting your search or filters.</string>
     <string name="transaction_deleted">Transaction deleted</string>
+    <string name="transaction_restored">Transaction restored</string>
     <string name="date_range_all">Any date</string>
     <string name="date_range_week">This week</string>
     <string name="date_range_month">This month</string>
@@ -382,6 +383,7 @@
     <string name="pin_mismatch">PINs do not match. Try again.</string>
     <string name="pin_length_error">PIN must be 4 to 8 digits.</string>
     <string name="pin_incorrect">Incorrect PIN. Try again.</string>
+    <string name="pin_updated">PIN updated</string>
     <string name="pin_forgot">Forgot PIN? Clearing app data resets it, but deletes your records.</string>
     <string name="biometric_unlock">Unlock with biometrics</string>
     <string name="biometric_summary">Use your fingerprint or face when available</string>
@@ -396,6 +398,8 @@
     <string name="auto_lock_1_min">After 1 minute</string>
     <string name="auto_lock_5_min">After 5 minutes</string>
     <string name="auto_lock_never">Never</string>
+    <string name="block_screenshots">Block screenshots</string>
+    <string name="block_screenshots_summary">Hide app content in screenshots and the recent apps preview</string>
     <string name="unlock">Unlock</string>
 
     <string name="notifications">Notifications</string>
@@ -432,8 +436,20 @@
     <string name="export_csv_summary">Save or share a spreadsheet of all transactions</string>
     <string name="export_report">Export financial report</string>
     <string name="export_report_summary">Save a text summary of your finances</string>
+    <string name="import_csv">Import transactions (CSV)</string>
+    <string name="import_csv_summary">Add transactions from a CSV file exported by this app</string>
+    <string name="import_success">Imported %1$d transactions · %2$d skipped</string>
+    <string name="import_failed">Could not import this CSV file.</string>
     <string name="backup_data">Back up data</string>
-    <string name="backup_summary">Save all records to a file you control</string>
+    <string name="backup_summary">Save all records to a plain or password-encrypted file</string>
+    <string name="last_backup">Last backup: %1$s</string>
+    <string name="backup_password_title">Backup password</string>
+    <string name="backup_password_message">Add an optional password to encrypt this backup. Leave it blank to save a readable JSON file.</string>
+    <string name="backup_password_hint">Password (optional)</string>
+    <string name="restore_password_title">This backup is encrypted</string>
+    <string name="restore_password_message">Enter the password used when this backup was created.</string>
+    <string name="wrong_password">That password is incorrect.</string>
+    <string name="password_required">Enter the backup password.</string>
     <string name="restore_data">Restore backup</string>
     <string name="restore_summary">Import records from a Finance Manager backup</string>
     <string name="clear_data">Clear all data</string>
@@ -447,7 +463,13 @@
     <string name="backup_success">Backup saved</string>
     <string name="backup_failed">Could not create the backup.</string>
     <string name="restore_title">Restore backup?</string>
-    <string name="restore_message">This will merge %1$d accounts, %2$d categories, %3$d transactions, %4$d budgets, and %5$d goals into your existing records. Nothing is overwritten.</string>
+    <string name="restore_message">This backup contains %1$d accounts, %2$d categories, %3$d transactions, %4$d budgets and %5$d goals.</string>
+    <string name="restore_mode_hint">Merge keeps your current records and adds the backup. Replace deletes all current data first.</string>
+    <string name="restore_merge">Merge</string>
+    <string name="restore_replace">Replace</string>
+    <string name="replace_confirm_title">Replace all data?</string>
+    <string name="replace_confirm_message">Every current account, transaction, budget, goal and household will be deleted, then %1$d transactions from the backup will be restored. This cannot be undone.</string>
+    <string name="replace_confirm">Delete and restore</string>
     <string name="restore_confirm">Restore</string>
     <string name="restore_success">Backup restored</string>
     <string name="restore_failed">This file is not a valid Finance Manager backup.</string>

@@ -209,8 +209,10 @@ public class TransactionsFragment extends Fragment {
                                 new com.financemanager.app.data.FinanceRepository.Callback<Void>() {
                                     @Override
                                     public void onSuccess(Void value) {
-                                        UiUtils.snackbar(binding.getRoot(),
-                                                getString(R.string.deleted));
+                                        UiUtils.snackbarWithAction(binding.getRoot(),
+                                                getString(R.string.transaction_deleted),
+                                                getString(R.string.undo),
+                                                v -> restore(item));
                                     }
 
                                     @Override
@@ -219,6 +221,26 @@ public class TransactionsFragment extends Fragment {
                                     }
                                 }))
                 .show();
+    }
+
+    private void restore(TransactionWithDetails item) {
+        viewModel.restoreTransaction(item.transaction,
+                new com.financemanager.app.data.FinanceRepository.Callback<Long>() {
+                    @Override
+                    public void onSuccess(Long value) {
+                        if (binding != null) {
+                            UiUtils.snackbar(binding.getRoot(),
+                                    getString(R.string.transaction_restored));
+                        }
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        if (binding != null) {
+                            UiUtils.snackbar(binding.getRoot(), message);
+                        }
+                    }
+                });
     }
 
     @Override

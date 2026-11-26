@@ -8,8 +8,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
-import androidx.sqlite.db.SupportSQLiteDatabase;
-
 import com.financemanager.app.data.entity.Account;
 import com.financemanager.app.data.entity.Budget;
 import com.financemanager.app.data.entity.Category;
@@ -29,6 +27,7 @@ import com.financemanager.app.models.ReportResult;
 import com.financemanager.app.models.TransactionFilter;
 import com.financemanager.app.models.TransactionType;
 import com.financemanager.app.models.TransactionWithDetails;
+import com.financemanager.app.utils.DataEraser;
 import com.financemanager.app.utils.DateUtils;
 import com.financemanager.app.utils.DefaultData;
 import com.financemanager.app.utils.LanguageHelper;
@@ -356,7 +355,7 @@ public class FinanceRepository {
         validateTransaction(transaction);
         long now = System.currentTimeMillis();
         transaction.updatedAt = now;
-        if (isNew) {
+        if (isNew && transaction.createdAt == 0) {
             transaction.createdAt = now;
         }
         Long result = database.runInTransaction((Callable<Long>) () -> {
@@ -434,6 +433,17 @@ public class FinanceRepository {
     private void deleteTransactionSync(long id) {
         database.transactionDao().deleteById(id);
         notifyDataChanged();
+    }
+
+    /** Re-inserts a transaction that was just deleted, keeping its original details. */
+    public void restoreTransaction(TransactionEntity transaction, Callback<Long> callback) {
+        runAsync(() -> {
+            if (transaction == null) {
+                throw new IllegalArgumentException("Nothing to restore");
+            }
+            transaction.id = 0;
+            return saveTransactionSync(transaction, true);
+        }, callback);
     }
 
     // ---------------------------------------------------------------------
@@ -969,19 +979,7 @@ public class FinanceRepository {
     /** Wipes every record, keeping app preferences. Used by "Clear all data". */
     public void clearAllData(Callback<Void> callback) {
         runAsync(() -> {
-            database.runInTransaction((Runnable) () -> {
-                SupportSQLiteDatabase sql = database.getOpenHelper().getWritableDatabase();
-                sql.execSQL("DELETE FROM household_members");
-                sql.execSQL("DELETE FROM household_categories");
-                sql.execSQL("DELETE FROM households");
-                sql.execSQL("DELETE FROM budget_alerts");
-                sql.execSQL("DELETE FROM budgets");
-                sql.execSQL("DELETE FROM savings_goals");
-                sql.execSQL("DELETE FROM recurring_transactions");
-                sql.execSQL("DELETE FROM transactions");
-                sql.execSQL("DELETE FROM categories");
-                sql.execSQL("DELETE FROM accounts");
-            });
+            database.runInTransaction((Runnable) () -> DataEraser.clearAll(database));
             return null;
         }, callback);
     }
