@@ -175,8 +175,9 @@ app/src/main/java/com/financemanager/app/
 ├── data/
 │   ├── entity/                    10 Room entities, including households
 │   ├── dao/                       DAOs (LiveData and synchronous queries)
-│   ├── FinanceDatabase.java       Room database, schema v2
+│   ├── FinanceDatabase.java       Room database, schema v3
 │   ├── Migration1To2.java         non-destructive v1 -> v2 migration
+│   ├── Migration2To3.java         non-destructive v2 -> v3 migration
 │   ├── FinanceRepository.java     single data facade used by ViewModels
 │   └── Converters.java            enum <-> TEXT converters
 ├── models/                        enums, query projections, HouseholdTotals
@@ -239,17 +240,21 @@ configured default currency with a zero opening balance.
 
 ## Database and migrations
 
-Room schema version 2 is exported to
-`app/schemas/com.financemanager.app.data.FinanceDatabase/1.json` and `2.json`.
-See [docs/DATABASE.md](docs/DATABASE.md) for tables, columns, keys and deletion
-behaviour.
+Room schema version 3 is exported to
+`app/schemas/com.financemanager.app.data.FinanceDatabase/1.json`, `2.json` and
+`3.json`. See [docs/DATABASE.md](docs/DATABASE.md) for tables, columns, keys and
+deletion behaviour.
 
 `Migration1To2` is a real, non-destructive migration. It adds `households`,
 `household_members` and `household_categories`, and rebuilds `transactions` and
 `recurring_transactions` with nullable `household_id`, `household_category_id`
 and `household_member_id` foreign keys plus `transactions.receipt_path`, copying
-every existing row unchanged. Destructive migrations are not enabled; any
-future schema change must ship a similar migration.
+every existing row unchanged.
+
+`Migration2To3` adds the optional `budgets.rollover` flag with
+`DEFAULT 0`, so existing budgets keep their exact limits and no data is
+rewritten. Destructive migrations are not enabled; any future schema change
+must ship a similar migration.
 
 ## Tests
 

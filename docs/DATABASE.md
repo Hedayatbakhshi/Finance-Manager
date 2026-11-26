@@ -1,9 +1,9 @@
-# Database schema (Room v2)
+# Database schema (Room v3)
 
 Database file: `finance_manager.db`
-Room version: **2** (`exportSchema = true`)
-Schema JSON: `app/schemas/com.financemanager.app.data.FinanceDatabase/1.json` and
-`2.json`
+Room version: **3** (`exportSchema = true`)
+Schema JSON: `app/schemas/com.financemanager.app.data.FinanceDatabase/1.json`,
+`2.json` and `3.json`
 
 All timestamps/dates are stored as `INTEGER` epoch milliseconds in local time
 (midnight for date-only fields). Enums are stored as `TEXT` names by
@@ -102,6 +102,7 @@ aggregates but included in account balances.
 | `amount_minor` | INTEGER | limit in cents |
 | `start_date` | INTEGER | period start, epoch ms |
 | `end_date` | INTEGER | period end, epoch ms |
+| `rollover` | INTEGER | boolean, `DEFAULT 0`; adds the unspent amount of the adjacent preceding budget |
 | `created_at` | INTEGER | epoch ms |
 | `updated_at` | INTEGER | epoch ms |
 
@@ -179,6 +180,14 @@ Version 1 is the initial schema. Version 2 adds local household support via
   `household_id`, `household_category_id`, `household_member_id` columns and
   real foreign keys; `transactions` also gains `receipt_path`. Every existing
   row is copied unchanged.
+
+Version 3 adds optional budget rollover via `Migration2To3`:
+
+- `budgets` gains `rollover INTEGER NOT NULL DEFAULT 0`, so existing budgets
+  keep their limits and no rows are rewritten.
+- Carryover itself is not stored: `BudgetDao` derives it from the adjacent
+  preceding budget for the same category, which is why editing or deleting a
+  period immediately updates the next one.
 
 The database builder does not call `fallbackToDestructiveMigration()`. Any
 future schema change must bump `version` and provide a `Migration` that

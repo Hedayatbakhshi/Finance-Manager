@@ -178,8 +178,9 @@ app/src/main/java/com/financemanager/app/
 ├── data/
 │   ├── entity/                    10 Room entities, including households
 │   ├── dao/                       DAOs (LiveData and synchronous queries)
-│   ├── FinanceDatabase.java       Room database, schema v2
+│   ├── FinanceDatabase.java       Room database, schema v3
 │   ├── Migration1To2.java         non-destructive v1 -> v2 migration
+│   ├── Migration2To3.java         non-destructive v2 -> v3 migration
 │   ├── FinanceRepository.java     single data facade used by ViewModels
 │   └── Converters.java            enum <-> TEXT converters
 ├── models/                        enums, query projections, HouseholdTotals
@@ -243,9 +244,9 @@ Room تنها منبع حقیقت است. هیچ دادهٔ مالی جعلی ی
 
 ## پایگاه‌داده و مهاجرت‌ها
 
-نسخهٔ ۲ شِمای Room در
-`app/schemas/com.financemanager.app.data.FinanceDatabase/1.json` و `2.json`
-صادر شده است. برای جدول‌ها، ستون‌ها، کلیدها و رفتار حذف به
+نسخهٔ ۳ شِمای Room در
+`app/schemas/com.financemanager.app.data.FinanceDatabase/1.json`، `2.json` و
+`3.json` صادر شده است. برای جدول‌ها، ستون‌ها، کلیدها و رفتار حذف به
 [docs/DATABASE.md](docs/DATABASE.md) مراجعه کنید.
 
 `Migration1To2` یک مهاجرت واقعی و غیرمخرب است. `households`،
@@ -253,8 +254,12 @@ Room تنها منبع حقیقت است. هیچ دادهٔ مالی جعلی ی
 و `recurring_transactions` را با کلیدهای خارجی قابل‌تهی `household_id`،
 `household_category_id` و `household_member_id` به‌علاوهٔ
 `transactions.receipt_path` بازسازی می‌کند و هر ردیف موجود را بدون تغییر کپی
-می‌کند. مهاجرت‌های مخرب فعال نیستند؛ هر تغییر شمای آینده باید مهاجرت مشابهی
-ارائه کند.
+می‌کند.
+
+`Migration2To3` پرچم اختیاری `budgets.rollover` را با `DEFAULT 0` اضافه
+می‌کند، بنابراین بودجه‌های موجود سقف دقیق خود را نگه می‌دارند و هیچ داده‌ای
+بازنویسی نمی‌شود. مهاجرت‌های مخرب فعال نیستند؛ هر تغییر شمای آینده باید
+مهاجرت مشابهی ارائه کند.
 
 ## آزمون‌ها
 
