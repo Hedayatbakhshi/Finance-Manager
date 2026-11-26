@@ -366,6 +366,12 @@
     <string name="theme_system">Follow system</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
+    <string name="accent_color">Accent color</string>
+    <string name="accent_summary">Buttons, charts, and highlight cards</string>
+    <string name="accent_blue">Blue</string>
+    <string name="accent_emerald">Emerald</string>
+    <string name="accent_violet">Violet</string>
+    <string name="accent_amber">Amber</string>
     <string name="profile">Profile</string>
     <string name="your_name">Your name</string>
     <string name="your_name_hint">How should we greet you?</string>

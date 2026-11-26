@@ -20,7 +20,7 @@
                 android:centerY="0.5"
                 android:endColor="@android:color/transparent"
                 android:gradientRadius="210dp"
-                android:startColor="@color/app_gradient_glow"
+                android:startColor="?attr/appGlow"
                 android:type="radial" />
         </shape>
     </item>

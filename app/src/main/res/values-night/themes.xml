@@ -27,6 +27,9 @@
         <item name="materialButtonStyle">@style/Widget.Finance.Button</item>
         <item name="textInputStyle">@style/Widget.Finance.TextInputLayout</item>
         <item name="bottomNavigationStyle">@style/Widget.Finance.BottomNav</item>
+        <item name="balanceCardStart">@color/balance_card_start</item>
+        <item name="balanceCardEnd">@color/balance_card_end</item>
+        <item name="appGlow">@color/app_gradient_glow</item>
     </style>
 
     <style name="Theme.FinanceManager.Splash" parent="Theme.FinanceManager">
@@ -37,5 +40,54 @@
     <style name="Theme.FinanceManager.Lock" parent="Theme.FinanceManager">
         <item name="android:windowBackground">@drawable/bg_app_gradient</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Activity</item>
+    </style>
+
+    <!-- Selectable accent palettes, applied on top of the OLED base theme. -->
+    <style name="ThemeOverlay.Finance.Accent.Blue" parent="">
+        <item name="colorPrimary">#7CC4FF</item>
+        <item name="colorOnPrimary">#001E33</item>
+        <item name="colorPrimaryContainer">#0B2A47</item>
+        <item name="colorOnPrimaryContainer">#CFE6FF</item>
+        <item name="colorSecondary">#7CC4FF</item>
+        <item name="colorSecondaryContainer">#0B2A47</item>
+        <item name="balanceCardStart">#0B2340</item>
+        <item name="balanceCardEnd">#000000</item>
+        <item name="appGlow">#1F2F7BFF</item>
+    </style>
+
+    <style name="ThemeOverlay.Finance.Accent.Emerald" parent="">
+        <item name="colorPrimary">#6FE3C1</item>
+        <item name="colorOnPrimary">#00201A</item>
+        <item name="colorPrimaryContainer">#0E2A24</item>
+        <item name="colorOnPrimaryContainer">#B9F2E2</item>
+        <item name="colorSecondary">#6FE3C1</item>
+        <item name="colorSecondaryContainer">#0E2A24</item>
+        <item name="balanceCardStart">#0B2A23</item>
+        <item name="balanceCardEnd">#000000</item>
+        <item name="appGlow">#1F2FD9B0</item>
+    </style>
+
+    <style name="ThemeOverlay.Finance.Accent.Violet" parent="">
+        <item name="colorPrimary">#C0ADFF</item>
+        <item name="colorOnPrimary">#1A1038</item>
+        <item name="colorPrimaryContainer">#241A4A</item>
+        <item name="colorOnPrimaryContainer">#E2D9FF</item>
+        <item name="colorSecondary">#C0ADFF</item>
+        <item name="colorSecondaryContainer">#241A4A</item>
+        <item name="balanceCardStart">#1D1642</item>
+        <item name="balanceCardEnd">#000000</item>
+        <item name="appGlow">#1F8B6CFF</item>
+    </style>
+
+    <style name="ThemeOverlay.Finance.Accent.Amber" parent="">
+        <item name="colorPrimary">#FFBE85</item>
+        <item name="colorOnPrimary">#331A00</item>
+        <item name="colorPrimaryContainer">#331F0C</item>
+        <item name="colorOnPrimaryContainer">#FFDFC2</item>
+        <item name="colorSecondary">#FFBE85</item>
+        <item name="colorSecondaryContainer">#331F0C</item>
+        <item name="balanceCardStart">#3A220E</item>
+        <item name="balanceCardEnd">#000000</item>
+        <item name="appGlow">#1FFF9E4D</item>
     </style>
 </resources>

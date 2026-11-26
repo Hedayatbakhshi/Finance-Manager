@@ -63,6 +63,7 @@ public class SettingsFragment extends Fragment {
         binding.currencyRow.getRoot().setOnClickListener(v -> pickCurrency());
         binding.languageRow.getRoot().setOnClickListener(v -> pickLanguage());
         binding.themeRow.getRoot().setOnClickListener(v -> pickTheme());
+        binding.accentRow.getRoot().setOnClickListener(v -> pickAccent());
         binding.autoLockRow.getRoot().setOnClickListener(v -> pickAutoLock());
         binding.changePinRow.getRoot().setOnClickListener(v -> changePin());
         binding.dataRow.getRoot().setOnClickListener(v -> navigate(R.id.data));
@@ -105,6 +106,8 @@ public class SettingsFragment extends Fragment {
         valueRow(binding.languageRow, R.string.language,
                 R.string.language_summary, languageLabel());
         valueRow(binding.themeRow, R.string.theme, 0, themeLabel(settings.getThemeMode()));
+        valueRow(binding.accentRow, R.string.accent_color, R.string.accent_summary,
+                accentLabel(settings.getAccent()));
         valueRow(binding.autoLockRow, R.string.auto_lock, R.string.auto_lock_summary,
                 autoLockLabel(settings.getAutoLockMinutes()));
 
@@ -251,6 +254,42 @@ public class SettingsFragment extends Fragment {
             case SettingsRepository.THEME_SYSTEM:
             default:
                 return getString(R.string.theme_system);
+        }
+    }
+
+    private void pickAccent() {
+        int[] accents = {SettingsRepository.ACCENT_BLUE, SettingsRepository.ACCENT_EMERALD,
+                SettingsRepository.ACCENT_VIOLET, SettingsRepository.ACCENT_AMBER};
+        String[] labels = {getString(R.string.accent_blue), getString(R.string.accent_emerald),
+                getString(R.string.accent_violet), getString(R.string.accent_amber)};
+        int checked = 0;
+        for (int i = 0; i < accents.length; i++) {
+            if (accents[i] == settings.getAccent()) {
+                checked = i;
+            }
+        }
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.accent_color)
+                .setSingleChoiceItems(labels, checked, (dialog, which) -> {
+                    settings.setAccent(accents[which]);
+                    dialog.dismiss();
+                    requireActivity().recreate();
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
+    private String accentLabel(int accent) {
+        switch (accent) {
+            case SettingsRepository.ACCENT_EMERALD:
+                return getString(R.string.accent_emerald);
+            case SettingsRepository.ACCENT_VIOLET:
+                return getString(R.string.accent_violet);
+            case SettingsRepository.ACCENT_AMBER:
+                return getString(R.string.accent_amber);
+            case SettingsRepository.ACCENT_BLUE:
+            default:
+                return getString(R.string.accent_blue);
         }
     }
 

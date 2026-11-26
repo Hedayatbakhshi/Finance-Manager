@@ -24,6 +24,7 @@ import com.financemanager.app.databinding.ActivityLockBinding;
 import com.financemanager.app.di.AppContainer;
 import com.financemanager.app.security.BiometricHelper;
 import com.financemanager.app.utils.LanguageHelper;
+import com.financemanager.app.utils.ThemeHelper;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 /** Unlock screen: numeric keypad PIN and optional biometric prompt. */
@@ -37,6 +38,8 @@ public class LockActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        ThemeHelper.applyAccent(this,
+                ((FinanceManagerApp) getApplication()).container().settings().getAccent());
         super.onCreate(savedInstanceState);
         LanguageHelper.syncDefaultLocale();
         container = ((FinanceManagerApp) getApplication()).container();

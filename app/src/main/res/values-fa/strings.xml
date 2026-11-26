@@ -366,6 +366,12 @@
     <string name="theme_system">همگام با سیستم</string>
     <string name="theme_light">روشن</string>
     <string name="theme_dark">تیره</string>
+    <string name="accent_color">رنگ اصلی</string>
+    <string name="accent_summary">دکمهها، نمودارها و کارتهای شاخص</string>
+    <string name="accent_blue">آبی</string>
+    <string name="accent_emerald">زمردی</string>
+    <string name="accent_violet">بنفش</string>
+    <string name="accent_amber">کهربایی</string>
     <string name="profile">نمایه</string>
     <string name="your_name">نام شما</string>
     <string name="your_name_hint">چطور شما را صدا کنیم؟</string>

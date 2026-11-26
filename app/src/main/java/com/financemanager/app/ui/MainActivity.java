@@ -28,6 +28,7 @@ import com.financemanager.app.ui.common.BottomNavDock;
 import com.financemanager.app.ui.common.SwipeNavigationLayout;
 import com.financemanager.app.ui.lock.LockActivity;
 import com.financemanager.app.utils.LanguageHelper;
+import com.financemanager.app.utils.ThemeHelper;
 import com.financemanager.app.workers.WorkScheduler;
 
 /** Single-activity shell hosting every screen plus the app-lock gate. */
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         container = ((FinanceManagerApp) getApplication()).container();
+        ThemeHelper.applyAccent(this, container.settings().getAccent());
         super.onCreate(savedInstanceState);
         LanguageHelper.syncDefaultLocale();
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);

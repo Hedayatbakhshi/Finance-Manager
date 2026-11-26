@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Palette hooks overridden by the accent theme overlays. -->
+    <attr name="balanceCardStart" format="color" />
+    <attr name="balanceCardEnd" format="color" />
+    <attr name="appGlow" format="color" />
+</resources>

@@ -34,6 +34,7 @@ public class SettingsRepository {
     private static final String KEY_NAME = "user_name";
     private static final String KEY_CURRENCY = "default_currency";
     private static final String KEY_THEME = "theme_mode";
+    private static final String KEY_ACCENT = "accent_palette";
     private static final String KEY_HIDE_BALANCE = "hide_balance";
     private static final String KEY_BLOCK_SCREENSHOTS = "block_screenshots";
     private static final String KEY_LAST_BACKUP = "last_backup_at";
@@ -54,6 +55,11 @@ public class SettingsRepository {
     public static final int THEME_SYSTEM = 0;
     public static final int THEME_LIGHT = 1;
     public static final int THEME_DARK = 2;
+
+    public static final int ACCENT_BLUE = 0;
+    public static final int ACCENT_EMERALD = 1;
+    public static final int ACCENT_VIOLET = 2;
+    public static final int ACCENT_AMBER = 3;
 
     /** Auto-lock values: 0 = immediately, -1 = never, otherwise minutes. */
     public static final int AUTO_LOCK_IMMEDIATELY = 0;
@@ -119,6 +125,14 @@ public class SettingsRepository {
 
     public void setThemeMode(int mode) {
         prefs.edit().putInt(KEY_THEME, mode).apply();
+    }
+
+    public int getAccent() {
+        return prefs.getInt(KEY_ACCENT, ACCENT_BLUE);
+    }
+
+    public void setAccent(int accent) {
+        prefs.edit().putInt(KEY_ACCENT, accent).apply();
     }
 
     public boolean isHideBalance() {

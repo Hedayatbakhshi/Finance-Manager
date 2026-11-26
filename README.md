@@ -85,6 +85,9 @@ Run the normal `assembleRelease` once the lint dependencies are available.
 
 ## Features
 
+Planned work and researched feature candidates are tracked in
+[ROADMAP.md](ROADMAP.md).
+
 ### Everyday finance
 
 - **Dashboard** — net worth, monthly income/expense with the change versus last
@@ -109,7 +112,8 @@ Run the normal `assembleRelease` once the lint dependencies are available.
 - **Reports** — selectable period, income/expense totals and net cash flow,
   category breakdown with pie chart and monthly trend bar chart.
 - **Settings** — display name, default currency, light/dark/system theme,
-  language (English/Persian), hide balances, app lock (PIN + optional
+  four accent palettes (Blue, Emerald, Violet, Amber) that apply to both
+  themes, language (English/Persian), hide balances, app lock (PIN + optional
   biometrics) with PIN change, screenshot blocking, auto-lock delay, notification
   toggles, backup/restore and destructive-data confirmation.
 

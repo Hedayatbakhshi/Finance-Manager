@@ -3,8 +3,8 @@
     android:shape="rectangle">
     <gradient
         android:angle="135"
-        android:endColor="@color/balance_card_end"
-        android:startColor="@color/balance_card_start"
+        android:endColor="?attr/balanceCardEnd"
+        android:startColor="?attr/balanceCardStart"
         android:type="linear" />
     <corners android:radius="24dp" />
 </shape>
