@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="balance_card_start">#0B2A23</color>
+    <color name="balance_card_start">#0B2340</color>
     <color name="balance_card_end">#000000</color>
     <color name="success_container">#0A241C</color>
     <color name="expense_container">#2A1215</color>
     <color name="warning_container">#2A2110</color>
-    <color name="chart_grid">#1A211F</color>
+    <color name="chart_grid">#1A1F26</color>
     <color name="nav_glass_fill">#D9000000</color>
     <color name="nav_glass_stroke">#33FFFFFF</color>
     <color name="app_gradient_start">#000000</color>
-    <color name="app_gradient_end">#050A08</color>
-    <color name="app_gradient_glow">#1F2FD9B0</color>
+    <color name="app_gradient_end">#05070A</color>
+    <color name="app_gradient_glow">#1F2F7BFF</color>
 </resources>
