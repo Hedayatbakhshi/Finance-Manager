@@ -126,7 +126,6 @@ The following functionality is already implemented.
 - British Pound (GBP).
 - Canadian Dollar (CAD).
 - Australian Dollar (AUD).
-- Japanese Yen (JPY).
 - UAE Dirham (AED).
 - Other valid three-letter ISO currency codes.
 
